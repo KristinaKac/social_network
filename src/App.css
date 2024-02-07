@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Open Sans', sans-serif;
+  src: url('./fonts/OpenSans-Regular.ttf');
+}
+
+body {
+  background-color: #ececec;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.app_wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-rows: 1fr 9fr;
+  grid-template-columns: 1fr 4fr;
+  grid-template-areas:
+    "h h"
+    "n c";
+}
+
+.app_wrapper_content {
+  grid-area: c;
+}

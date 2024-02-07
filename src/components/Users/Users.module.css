@@ -1,0 +1,46 @@
+.user_info img {
+    width: 40px;
+    height: 40px;
+}
+.users_list {
+    list-style-type: none;
+    border-radius: 14px;
+    background-color: white;
+}
+.user_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 25px;
+    border-bottom: 1px solid #dee2e6;
+
+}
+.user_item:last-child{
+    border: none;
+}
+.user_info {
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+    text-decoration: none;
+    color: black;
+}
+.user_description {
+    display: flex;
+    flex-direction: column;
+}
+.activePage {
+    font-weight: bold;
+}
+.btn_follow {
+    color: #0d6efd;
+    padding: 6px 20px;
+    background-color: white;
+    border: #0d6efd solid 1px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.btn_follow:hover {
+    background-color: #0d6efd;
+    color: white;
+}

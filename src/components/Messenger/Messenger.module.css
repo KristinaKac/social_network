@@ -1,0 +1,23 @@
+.messenger_wrapper{}
+
+.messenger{
+    display: grid;
+    grid-template-columns: 2fr 4fr;
+}
+
+.contact_list{
+    border: 1px solid white;
+}
+
+.contact_item{
+
+}
+
+.message_list{
+    border: 1px solid white;
+}
+
+.message_item, .contact_item{
+    list-style-type: none;
+    padding: 10px 0px;
+}

@@ -1,0 +1,13 @@
+.post {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+}
+.post img {
+    width: 30px;
+    height: 30px;
+}
+.text {
+
+}
