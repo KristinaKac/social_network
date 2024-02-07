@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { addPost, changeTextareaPost, getUserThunk, 
-  getStatusThunk, updateStatusThunk, setPhotoThunk } from '../../state/profileReducer';
+import {
+  addPost, changeTextareaPost, getUserThunk,
+  getStatusThunk, updateStatusThunk, setPhotoThunk, setProfileSettingsThunk, setEdit
+} from '../../state/profileReducer';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -26,11 +28,13 @@ const ProfileContainer = (props) => {
       profilePage={props.profilePage}
       addPost={props.addPost}
       changeTextareaPost={props.changeTextareaPost}
-      isAuth={props.isAuth}
       currentStatus={props.currentStatus}
       updateStatusThunk={props.updateStatusThunk}
       isOwner={!props.router.params.userId}
-      setPhotoThunk={props.setPhotoThunk} />
+      setPhotoThunk={props.setPhotoThunk}
+      setProfileSettingsThunk={props.setProfileSettingsThunk}
+      isSuccessEdit={props.isSuccessEdit}
+      setEdit={props.setEdit} />
   )
 }
 
@@ -54,11 +58,15 @@ const mapStateToProps = (state) => {
   return {
     profilePage: state.profilePage,
     currentStatus: state.profilePage.currentStatus,
-    authorizedUserId: state.auth.id
+    authorizedUserId: state.auth.id,
+    isSuccessEdit: state.profilePage.isSuccessEdit
   }
 }
 
 export default compose(
-  connect(mapStateToProps, { addPost, changeTextareaPost, getUserThunk, getStatusThunk, updateStatusThunk, setPhotoThunk }),
+  connect(mapStateToProps, {
+    addPost, changeTextareaPost,
+    getUserThunk, getStatusThunk, updateStatusThunk, setPhotoThunk, setProfileSettingsThunk, setEdit
+  }),
   withRouter,
 )(ProfileContainer);

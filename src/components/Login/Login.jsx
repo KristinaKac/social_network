@@ -7,7 +7,7 @@ const Login = (props) => {
     
     return (
         <div className={CSS.login_wrapper}>
-            <LoginForm loginThunk={props.loginThunk}/>
+            <LoginForm loginThunk={props.loginThunk} captcha={props.captcha} />
         </div>
     )
 }

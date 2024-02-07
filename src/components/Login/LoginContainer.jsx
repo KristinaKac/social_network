@@ -9,12 +9,17 @@ import {WithRedirectComponentToProfile} from '../../hoc/withRedirectComponent';
 const LoginContainer = (props) => {
 
     return (
-        <Login loginThunk={props.loginThunk}/>
+        <Login loginThunk={props.loginThunk} captcha={props.captcha} />
     )
+}
+const mapStateToProps = (state) => {
+    return {
+        captcha: state.auth.captcha
+    }
 }
 
 export default compose(
-    connect(null, { loginThunk }),
+    connect(mapStateToProps, { loginThunk }),
     WithRedirectComponentToProfile,
 )(LoginContainer)
 

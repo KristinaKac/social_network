@@ -29,8 +29,8 @@ export const updateStatus = (status) => {
 export const auth = () => {
     return instance.get(`auth/me`);
 }
-export const loginAuth = (email, password, rememberMe) => {
-    return instance.post(`auth/login`, {email, password, rememberMe});
+export const loginAuth = (email, password, rememberMe, captcha = null) => {
+    return instance.post(`auth/login`, {email, password, rememberMe, captcha});
 }
 export const logout = () => {
     return instance.delete(`auth/login`);
@@ -43,4 +43,10 @@ export const setPhoto = (photoFile) => {
             'Content-Type': 'multipart/form-data'
         }
     });
+}
+export const setProfileSettings = (profile) => {
+    return instance.put(`profile`, profile);
+}
+export const getCaptcha = () => {
+    return instance.get(`security/get-captcha-url`);
 }

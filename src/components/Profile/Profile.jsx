@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import css from './Profile.module.css'
 import Post from './Post/Post';
 import avatar from '../../img/avatar.png'
 import Preloader from '../common/Preloader';
 import Status from './Status/Status';
+import ProfileInfo from './ProfileInfo';
+import ProfileForm from './ProfileForm/ProfileForm';
 
 const Profile = (props) => {
 
+    useEffect(() => {
+        if (props.isSuccessEdit) {
+            setEditMode(false);
+        }
+        props.setEdit(false);
+    }, [props.isSuccessEdit]);
 
     const [modal, setModal] = useState(false);
+    const [editMode, setEditMode] = useState(false);
 
     if (!props.profilePage.currentUser) {
         return <Preloader />;
@@ -37,19 +46,31 @@ const Profile = (props) => {
             props.setPhotoThunk(e.target.files[0]);
         }
     }
+    const editProfile = () => {
+        setEditMode(true);
+    }
+    const saveChangesProfile = (fullName, aboutMe, LookingForAJob, LookingForAJobDescription, setStatus) => {
+        props.setProfileSettingsThunk({
+            userId: props.profilePage.currentUser.userId,
+            aboutMe, fullName, LookingForAJob, LookingForAJobDescription
+        }, setStatus)
+    }
 
     return (
         <div>
-            <div className={css.profile}>
-                {props.profilePage.currentUser.photos.large
-                    ? <img src={props.profilePage.currentUser.photos.large} alt="avatar" />
-                    : <img src={avatar} alt="avatar" />}
-                <div className={css.user_info}>
-                    <span className={css.user_name}>{props.profilePage.currentUser.fullName}</span>
-                    <span className={css.user_aboutMe}>{props.profilePage.currentUser.aboutMe}</span>
-                    <Status currentStatus={props.currentStatus} updateStatusThunk={props.updateStatusThunk} />
-                </div>
-            </div>
+            {editMode
+                ? <ProfileForm
+                    saveChangesProfile={saveChangesProfile}
+                    currentUser={props.profilePage.currentUser} />
+                : <ProfileInfo
+                    profilePage={props.profilePage}
+                    isOwner={props.isOwner}
+                    currentStatus={props.currentStatus}
+                    updateStatusThunk={props.updateStatusThunk}
+                    editProfile={editProfile}
+                />
+            }
+
             <div className={css.profile_settings}>
                 {props.isOwner && <input type="file" name="" id="" onChange={setPhoto} />}
             </div>
