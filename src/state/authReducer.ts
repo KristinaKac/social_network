@@ -1,17 +1,9 @@
 import { ThunkAction } from 'redux-thunk';
-import { auth, getCaptcha, loginAuth, logout } from '../api/api.js';
+import { auth, getCaptcha, loginAuth, logout } from '../api/api';
 import { StateType } from './redux.js';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_CAPTCHA = 'SET_CAPTCHA';
-
-// type InitialValueType = {
-//     id: number | null,
-//     email: string | null,
-//     login: string | null,
-//     isAuth: boolean,
-//     captcha: string | null
-// }
 
 const initialValue = {
     id: null as number | null,

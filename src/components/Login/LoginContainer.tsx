@@ -3,7 +3,7 @@ import Login from './Login';
 import { connect } from 'react-redux';
 import { loginThunk } from '../../state/authReducer';
 import { compose } from 'redux';
-import { WithRedirectComponentToProfile } from '../../hoc/withRedirectComponent.jsx';
+import { WithRedirectComponentToProfile } from '../../hoc/withRedirectComponent';
 import { StateType } from '../../state/redux';
 
 type MapStateType = {
@@ -29,7 +29,7 @@ const mapStateToProps = (state: StateType): MapStateType => {
     }
 }
 
-export default compose(
+export default compose<React.ComponentType>(
     connect<MapStateType, MapDispatchType, OwnPropsType, StateType>(mapStateToProps, { loginThunk }),
     WithRedirectComponentToProfile,
 )(LoginContainer)

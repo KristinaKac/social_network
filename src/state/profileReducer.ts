@@ -1,5 +1,5 @@
 import avatar from '../img/avatar.png';
-import { getStatus, getUser, setPhoto, setProfileSettings, updateStatus } from '../api/api.js'
+import { getStatus, getUser, setPhoto, setProfileSettings, updateStatus } from '../api/api'
 import { ThunkAction } from 'redux-thunk';
 import { StateType } from './redux';
 
@@ -101,6 +101,7 @@ export const setEdit = (success: boolean): SetEditType => ({ type: SET_SUCCESS_E
 
 export const getUserThunk = (userId: number): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await getUser(userId);
+    console.log(response)
     dispatch(setUser(response.data));
 }
 
@@ -126,7 +127,6 @@ export const setProfileSettingsThunk = (profile: ProfileUserType, setStatus: any
     ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
         const response = await setProfileSettings(profile);
         if (response.data.resultCode === 0) {
-            // if (!profile.userId) return;
             dispatch(getUserThunk(profile.userId));
             dispatch(setEdit(true));
         } else {

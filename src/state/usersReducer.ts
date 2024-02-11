@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { followAPI, getUsers, unfollowAPI } from "../api/api.js";
+import { followAPI, getUsers, unfollowAPI } from "../api/api";
 import { StateType } from "./redux.js";
 
 const FOLLOW = 'FOLLOW';
@@ -126,8 +126,8 @@ export const getUsersThunk = (currentPage: number, maxUsersOnPage: number): Thun
         const response = await getUsers(currentPage, maxUsersOnPage);
         dispatch(setFetching(true));
         dispatch(setCurrentPage(currentPage));
-        dispatch(setTotalPages(response.data.totalCount));
-        dispatch(setUsers(response.data.items));
+        dispatch(setTotalPages(response.totalCount));
+        dispatch(setUsers(response.items));
     }
 
 export const followThunk = (userId: number): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {

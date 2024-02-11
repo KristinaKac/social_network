@@ -6,8 +6,6 @@ import authReducer from "./authReducer";
 import { thunk as thunkMiddleWare } from 'redux-thunk';
 import appReducer from "./appReducer";
 
-import { configureStore } from "@reduxjs/toolkit";
-
 type ReducersType = typeof reducers;
 export type StateType = ReturnType<ReducersType>;
 

@@ -53,3 +53,33 @@
     border-radius: 7px;
     font-size: 16px;
 }
+.add_post {
+    display: flex;
+    justify-content: stretch;
+    box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
+    background-color: white;
+    padding: 8px 0;
+    border-radius: 14px;
+    margin: 24px 0;
+}
+
+.add_post img {
+    width: 25px;
+    height: auto;
+    margin: 6px 12px;
+}
+
+.post_input {
+    width: 100%;
+    border: none;
+    background-color: inherit;
+    outline: none;
+    padding: 6px 12px 6px 4px;
+}
+
+.post_btn {
+    width: 25px;
+    height: auto;
+    margin: 6px 12px;
+    text-align: center;
+}

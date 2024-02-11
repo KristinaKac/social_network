@@ -21,10 +21,8 @@ type MapDispatchType = {
     followThunk: (id: number) => void,
     getUsersThunk: (currentPage: number, maxUsersOnPage: number) => void
 }
-type OwnPropsType = {
-    onClickChangePage: (page: number) => void,
-}
-type PropsType = MapStateType & MapDispatchType & OwnPropsType;
+
+type PropsType = MapStateType & MapDispatchType;
 
 
 const UsersContainer: React.FC<PropsType> = (props) => {
@@ -69,7 +67,7 @@ const mapStateToProps = (state: StateType): MapStateType => {
     }
 }
 
-export default connect<MapStateType, MapDispatchType, OwnPropsType, StateType>(mapStateToProps, {
+export default connect<MapStateType, MapDispatchType, {}, StateType>(mapStateToProps, {
     getUsersThunk, followThunk, unfollowThunk
 })(UsersContainer);
 

@@ -2,8 +2,7 @@ const ADD_MESSAGE = 'ADD_MESSAGE';
 const CHANGE_TEXTAREA_MESSAGE = 'CHANGE_TEXTAREA_MESSAGE';
 
 
-const initialValue =
-{
+const initialValue = {
     contacts: [
         { id: 1, name: "Ирина" },
         { id: 2, name: "Влад" },

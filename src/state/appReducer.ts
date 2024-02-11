@@ -1,5 +1,6 @@
 import { authThunk } from "./authReducer";
 
+
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
 const initialValue = {
