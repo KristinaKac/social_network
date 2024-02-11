@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
+import React, { FC } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import css from '../Profile.module.css'
-import avatar from '../../../img/avatar.png'
 
-import Status from '../Status/Status';
 import ProfileSchema from './ProfileFormValidation';
 
-const ProfileForm = (props) => {
-    if(!props.currentUser.aboutMe) props.currentUser.aboutMe = '';
-    if(!props.currentUser.lookingForAJobDescription) props.currentUser.lookingForAJobDescription = '';
+type PropsType = {
+    currentUser: ProfileUserType,
+    saveChangesProfile: (
+        profile: ProfileUserType,
+        setStatus: any,
+    ) => void
+}
+
+const ProfileForm: FC<PropsType> = ({ currentUser, saveChangesProfile }) => {
     return (
         <div className={css.profile}>
 
             <Formik
-                initialValues={{ fullName: props.currentUser.fullName, aboutMe: props.currentUser.aboutMe,
-                    lookingForAJob: props.currentUser.lookingForAJob, lookingForAJobDesc: props.currentUser.lookingForAJobDescription}}
+                initialValues={{
+                    fullName: currentUser.fullName, aboutMe: currentUser.aboutMe,
+                    lookingForAJob: currentUser.lookingForAJob, lookingForAJobDescription: currentUser.lookingForAJobDescription
+                }}
                 validationSchema={ProfileSchema}
                 onSubmit={(values, { setSubmitting, setStatus }) => {
-                    props.saveChangesProfile(values.fullName, values.aboutMe,
-                        values.lookingForAJob, values.lookingForAJobDesc, setStatus);
+                    const profile: ProfileUserType = {
+                        userId: currentUser.userId,
+                        fullName: values.fullName,
+                        aboutMe: values.aboutMe,
+                        lookingForAJob: values.lookingForAJob,
+                        lookingForAJobDescription: values.lookingForAJobDescription
+                    }
+                    saveChangesProfile(profile, setStatus);
                     setSubmitting(false);
                 }}
             >
@@ -42,10 +54,10 @@ const ProfileForm = (props) => {
                         <ErrorMessage name="lookingForAJob" component="div" />
 
                         <div>
-                            <label htmlFor="lookingForAJobDesc">Looking For a Job Description</label>
-                            <Field type='text' name='lookingForAJobDesc' />
+                            <label htmlFor="lookingForAJobDescription">Looking For a Job Description</label>
+                            <Field type='text' name='lookingForAJobDescription' />
                         </div>
-                        <ErrorMessage name="lookingForAJobDesc" component="div" />
+                        <ErrorMessage name="lookingForAJobDescription" component="div" />
 
                         {status && status.message && <div className={css.messageError}>{status.message}</div>}
 

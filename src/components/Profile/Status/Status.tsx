@@ -1,22 +1,27 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import { useEffect } from 'react';
 
-const Status = (props) => {
+type PropsType = {
+    currentStatus: string,
+    updateStatusThunk: (status: string) => void
+}
+
+const Status: FC<PropsType> = ({ currentStatus, updateStatusThunk }) => {
     const [editMode, setEditMode] = useState(false);
-    const [status, setStatus] = useState(props.currentStatus);
+    const [status, setStatus] = useState<string>(currentStatus);
 
     useEffect(() => {
-        setStatus(props.currentStatus);
-    }, [props.currentStatus]);
+        setStatus(currentStatus);
+    }, [currentStatus]);
 
     const activateEditMode = () => {
         setEditMode(true);
     }
     const deactivateEditMode = () => {
         setEditMode(false);
-        props.updateStatusThunk(status);
+        updateStatusThunk(status);
     }
-    const onInputChange = (e) => {
+    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.value);
     }
 
@@ -25,7 +30,7 @@ const Status = (props) => {
             {!editMode &&
                 <div>
                     <span onDoubleClick={activateEditMode}>
-                        {props.currentStatus ? props.currentStatus : 'No status'}
+                        {currentStatus ? currentStatus : 'No status'}
                     </span>
                 </div>
             }

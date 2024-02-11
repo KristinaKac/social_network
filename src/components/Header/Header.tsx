@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { FC } from 'react';
 import css from './Header.module.css';
 import img from '../../img/logo.png'
 import { NavLink } from 'react-router-dom';
 
-const Header = (props) => {
+type PropsType = {
+    isAuth: boolean,
+    login: string | null,
+    logoutThunk: () => void
+}
+
+const Header: FC<PropsType> = ({isAuth, login, logoutThunk}) => {
 
     return (
         <div className={css.header}>
             <img src={img} alt="" />
 
             <div className={css.auth_block}>
-                {props.isAuth
+                {isAuth
                     ? <div>
-                        <div>{props.login}</div>
-                        <button onClick={props.logoutThunk}>Logout</button>
+                        <div>{login}</div>
+                        <button onClick={logoutThunk}>Logout</button>
                     </div>
                     : <NavLink to='/login'>Login</NavLink>}
             </div>

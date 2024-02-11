@@ -1,17 +1,38 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import {
-    follow, unfollow, getUsersThunk, followThunk, unfollowThunk
+    getUsersThunk, followThunk, unfollowThunk
 } from "../../state/usersReducer";
 import Users from "./Users";
-import Preloader from '../common/Preloader';
+import Preloader from '../common/preloader/Preloader';
+import { StateType } from '../../state/redux';
 
-const UsersContainer = (props) => {
+type MapStateType = {
+    totalPages: number,
+    maxPortionOnPage: number,
+    currentPage: number,
+    portionSize: number,
+    users: Array<UsersType>,
+    isBtnInProgress: Array<number>,
+    isFetching: boolean,
+}
+type MapDispatchType = {
+    unfollowThunk: (id: number) => void,
+    followThunk: (id: number) => void,
+    getUsersThunk: (currentPage: number, maxUsersOnPage: number) => void
+}
+type OwnPropsType = {
+    onClickChangePage: (page: number) => void,
+}
+type PropsType = MapStateType & MapDispatchType & OwnPropsType;
+
+
+const UsersContainer: React.FC<PropsType> = (props) => {
     useEffect(() => {
         props.getUsersThunk(props.currentPage, props.maxPortionOnPage);
     }, [props.currentPage, props.maxPortionOnPage]);
 
-    const onClickChangePage = (page) => {
+    const onClickChangePage = (page: number) => {
         props.getUsersThunk(page, props.maxPortionOnPage);
     }
 
@@ -27,7 +48,7 @@ const UsersContainer = (props) => {
                 currentPage={props.currentPage}
                 portionSize={props.portionSize}
                 onClickChangePage={onClickChangePage}
-                usersPage={props.usersPage}
+                users={props.users}
                 isBtnInProgress={props.isBtnInProgress}
                 followThunk={props.followThunk}
                 unfollowThunk={props.unfollowThunk}
@@ -36,9 +57,9 @@ const UsersContainer = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: StateType): MapStateType => {
     return {
-        usersPage: state.usersPage,
+        users: state.usersPage.users,
         currentPage: state.usersPage.currentPage,
         maxPortionOnPage: state.usersPage.maxPortionOnPage,
         totalPages: state.usersPage.totalPages,
@@ -48,10 +69,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps,
-    {
-        follow, unfollow, getUsersThunk, followThunk, unfollowThunk
-    })(UsersContainer);
+export default connect<MapStateType, MapDispatchType, OwnPropsType, StateType>(mapStateToProps, {
+    getUsersThunk, followThunk, unfollowThunk
+})(UsersContainer);
 
 
 

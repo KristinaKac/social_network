@@ -1,18 +1,26 @@
 import React, { useState } from 'react';
 import css from './Paginator.module.css';
 
-const Paginator = (props) => {
-    let pages = [];
-    let pagesCount = Math.ceil(props.totalPages / props.maxPortionOnPage);
+type PropsType = {
+    totalPages: number,
+    maxPortionOnPage: number,
+    portionSize: number,
+    currentPage: number
+    onClickChangePage: (page: number) => void
+}
+
+const Paginator: React.FC<PropsType> = ({totalPages ,maxPortionOnPage, portionSize, currentPage, onClickChangePage}) => {
+    let pages = [] as Array<number>;
+    let pagesCount: number = Math.ceil(totalPages / maxPortionOnPage);
     const [portionNumber, setPortionNumber] = useState(1);
 
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    let portionCount = Math.ceil(pagesCount / props.portionSize);
-    
-    let leftPortionPageNumber = (portionNumber - 1) * props.portionSize + 1;
-    let rightPortionPageNumber = portionNumber * props.portionSize;
+    let portionCount: number = Math.ceil(pagesCount / portionSize);
+
+    let leftPortionPageNumber: number = (portionNumber - 1) * portionSize + 1;
+    let rightPortionPageNumber: number = portionNumber * portionSize;
 
     return (
 
@@ -22,8 +30,8 @@ const Paginator = (props) => {
                 {pages
                     .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
                     .map(page =>
-                        <span className={props.currentPage === page ? css.activePage : css.page}
-                            onClick={(e) => { props.onClickChangePage(page) }}>{page}</span>
+                        <span className={currentPage === page ? css.activePage : css.page}
+                            onClick={(e) => { onClickChangePage(page) }}>{page}</span>
                     )}
                 {portionNumber < portionCount && <button className={css.btn} onClick={() => setPortionNumber(portionNumber + 1)}>&gt;</button>}
             </div>

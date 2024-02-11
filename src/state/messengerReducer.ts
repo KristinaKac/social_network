@@ -1,6 +1,7 @@
 const ADD_MESSAGE = 'ADD_MESSAGE';
 const CHANGE_TEXTAREA_MESSAGE = 'CHANGE_TEXTAREA_MESSAGE';
 
+
 const initialValue =
 {
     contacts: [
@@ -9,17 +10,18 @@ const initialValue =
         { id: 3, name: "Ольга" },
         { id: 4, name: "Олег" },
         { id: 5, name: "Дарья" },
-    ],
+    ] as Array<ContactsType>,
     dialogs: [
         { id: 1, message: "Hi!" },
         { id: 2, message: "How are you?" },
         { id: 3, message: "Hello" },
         { id: 4, message: "My name is ..." },
-    ],
+    ] as Array<DialogsType>,
     textAreaNewMessage: 'hello',
 }
+type InitialValueType = typeof initialValue;
 
-const messengerReducer = (state = initialValue, action) => {
+const messengerReducer = (state = initialValue, action: any): InitialValueType => {
 
     switch (action.type) {
         case ADD_MESSAGE:
@@ -40,7 +42,16 @@ const messengerReducer = (state = initialValue, action) => {
             return state;
     }
 }
-export const addMessageCreator = () => ({ type: ADD_MESSAGE });
-export const changeTextareaMessageCreator = (text) => ({ type: CHANGE_TEXTAREA_MESSAGE, text: text });
+type AddMessageType = {
+    type: typeof ADD_MESSAGE
+}
+type ChangeTextareaMessageType = {
+    type: typeof CHANGE_TEXTAREA_MESSAGE,
+    text: string
+}
+export const addMessage = (): AddMessageType => ({ type: ADD_MESSAGE });
+export const changeTextareaMessage = (text: string): ChangeTextareaMessageType => ({
+    type: CHANGE_TEXTAREA_MESSAGE, text: text
+});
 
 export default messengerReducer;

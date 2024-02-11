@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import LoginSchema from './LoginFormValidation';
 import css from '../Login.module.css';
 
-const LoginForm = (props) => {
+type PropsType = {
+    captcha: string | null, 
+    loginThunk: (email: string, password: string, rememberMe: boolean, captcha: string | null, setStatus: any) => void
+}
+
+const LoginForm : FC<PropsType> = ({captcha, loginThunk}) => {
     return (
         <Formik
             initialValues={{ email: '', password: '', rememberMe: false, captcha: '' }}
             validationSchema={LoginSchema}
             onSubmit={(values, { setSubmitting, setStatus }) => {
-                props.loginThunk(values.email, values.password, values.rememberMe, values.captcha, setStatus);
+                loginThunk(values.email, values.password, values.rememberMe, values.captcha, setStatus);
                 setSubmitting(false);
             }}
         >
@@ -29,8 +34,8 @@ const LoginForm = (props) => {
                     </div>
                     {status && status.messages && <div className={css.messageError}>{status.messages}</div>}
 
-                    {props.captcha && <img src={props.captcha} alt='captcha'/>}
-                    {props.captcha && <Field type='text' name='captcha' placeholder='Captcha...' />}
+                    {captcha && <img src={captcha} alt='captcha'/>}
+                    {captcha && <Field type='text' name='captcha' placeholder='Captcha...' />}
                     
                     <button type="submit" disabled={isSubmitting}>
                         Log In

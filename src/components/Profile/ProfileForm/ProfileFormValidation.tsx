@@ -9,10 +9,6 @@ const ProfileSchema = Yup.object().shape({
         .max(500, 'Too Long')
         .min(3, 'Must be longer than 3 characters')
         .required('Required'),
-    // lookingForAJobDesc: Yup.string()
-    //     .max(500, 'Too Long')
-    //     .min(3, 'Must be longer than 3 characters')
-    //     .required('Required'),
 });
 
 export default ProfileSchema;
