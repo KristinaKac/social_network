@@ -1,8 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import {
-  addPost, changeTextareaPost, getUserThunk,
-  getStatusThunk, updateStatusThunk, setPhotoThunk, setProfileSettingsThunk, setEdit
+  getUserThunk,
+  getStatusThunk, updateStatusThunk, setPhotoThunk, setProfileSettingsThunk
 } from '../../state/profileReducer';
+import { actions } from '../../state/profileReducer';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import { useNavigate, useParams } from "react-router-dom";
@@ -21,7 +22,7 @@ type MapStateType = {
 type OwnProps = {};
 
 interface PathParamsType extends PropsWithRouter {
-  userId: number
+  userId: string
 }
 
 type MapDispatchType = {
@@ -42,6 +43,7 @@ const ProfileContainer: FC<PropsType> = (props) => {
   const [isOwner, setOwner] = useState(false);
 
   let { userId } = useParams();
+  
 
   useEffect(() => {
     if (Number(userId)) {
@@ -90,8 +92,8 @@ const mapStateToProps = (state: StateType): MapStateType => {
 
 export default compose<React.ComponentType>(
   connect<MapStateType, MapDispatchType, OwnProps, StateType>(mapStateToProps, {
-    addPost, changeTextareaPost,
-    getUserThunk, getStatusThunk, updateStatusThunk, setPhotoThunk, setProfileSettingsThunk, setEdit
+    addPost: actions.addPost, changeTextareaPost: actions.changeTextareaPost, setEdit: actions.setEdit,
+    getUserThunk, getStatusThunk, updateStatusThunk, setPhotoThunk, setProfileSettingsThunk
   }),
   withRouter,
 )(ProfileContainer);

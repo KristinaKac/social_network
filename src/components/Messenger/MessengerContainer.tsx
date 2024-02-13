@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { addMessage, changeTextareaMessage } from '../../state/messengerReducer';
+import { actions } from '../../state/messengerReducer';
 import Messenger from './Messenger';
 import { connect } from 'react-redux';
 import { WithRedirectComponentToLogin } from '../../hoc/withRedirectComponent';
@@ -40,6 +40,6 @@ const mapStateToProps = (state: StateType): MapStatePropsType => {
 
 export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, StateType>
-        (mapStateToProps, { addMessage, changeTextareaMessage }),
+        (mapStateToProps, { addMessage: actions.addMessage, changeTextareaMessage: actions.changeTextareaMessage }),
     WithRedirectComponentToLogin
 )(MessengerContainer);

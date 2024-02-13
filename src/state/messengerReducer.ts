@@ -1,6 +1,4 @@
-const ADD_MESSAGE = 'ADD_MESSAGE';
-const CHANGE_TEXTAREA_MESSAGE = 'CHANGE_TEXTAREA_MESSAGE';
-
+import { InferActionType } from "./redux";
 
 const initialValue = {
     contacts: [
@@ -18,12 +16,11 @@ const initialValue = {
     ] as Array<DialogsType>,
     textAreaNewMessage: 'hello',
 }
-type InitialValueType = typeof initialValue;
 
-const messengerReducer = (state = initialValue, action: any): InitialValueType => {
+const messengerReducer = (state = initialValue, action: ActionType): InitialValueType => {
 
     switch (action.type) {
-        case ADD_MESSAGE:
+        case 'ADD_MESSAGE':
             const newMessage = {
                 id: 1,
                 message: state.textAreaNewMessage
@@ -32,7 +29,7 @@ const messengerReducer = (state = initialValue, action: any): InitialValueType =
                 ...state,
                 dialogs: [...state.dialogs, newMessage]
             }
-        case CHANGE_TEXTAREA_MESSAGE:
+        case 'CHANGE_TEXTAREA_MESSAGE':
             return {
                 ...state,
                 textAreaNewMessage: action.text,
@@ -41,16 +38,14 @@ const messengerReducer = (state = initialValue, action: any): InitialValueType =
             return state;
     }
 }
-type AddMessageType = {
-    type: typeof ADD_MESSAGE
+
+export const actions = {
+    addMessage: () => ({ type: 'ADD_MESSAGE' } as const),
+    changeTextareaMessage: (text: string) => ({ type: 'CHANGE_TEXTAREA_MESSAGE', text: text} as const),
 }
-type ChangeTextareaMessageType = {
-    type: typeof CHANGE_TEXTAREA_MESSAGE,
-    text: string
-}
-export const addMessage = (): AddMessageType => ({ type: ADD_MESSAGE });
-export const changeTextareaMessage = (text: string): ChangeTextareaMessageType => ({
-    type: CHANGE_TEXTAREA_MESSAGE, text: text
-});
+
 
 export default messengerReducer;
+
+type InitialValueType = typeof initialValue;
+type ActionType = InferActionType<typeof actions>;
