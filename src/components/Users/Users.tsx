@@ -33,6 +33,7 @@ const Users: React.FC<PropsType> = (props) => {
 
             <ul className={css.users_list}>
                 {props.users.map((user: UsersType) => <User
+                    key={user.id}
                     user={user}
                     isBtnInProgress={props.isBtnInProgress}
                     unfollowThunk={props.unfollowThunk}

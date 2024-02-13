@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import LoginSchema from './LoginFormValidation';
 import css from '../Login.module.css';
 

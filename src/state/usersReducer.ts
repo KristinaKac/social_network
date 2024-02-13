@@ -1,5 +1,5 @@
 import { ThunkAction } from "redux-thunk";
-import { followAPI, getUsers, unfollowAPI } from "../api/api";
+import { ResultCodes, followAPI, getUsers, unfollowAPI } from "../api/api";
 import { StateType } from "./redux.js";
 
 const FOLLOW = 'FOLLOW';
@@ -133,7 +133,7 @@ export const getUsersThunk = (currentPage: number, maxUsersOnPage: number): Thun
 export const followThunk = (userId: number): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     dispatch(setBtnInProgress(true, userId));
     const response = await followAPI(userId);
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodes.Success) {
         dispatch(follow(userId));
     }
     dispatch(setBtnInProgress(false, userId));
@@ -142,7 +142,7 @@ export const followThunk = (userId: number): ThunkAction<void, StateType, unknow
 export const unfollowThunk = (userId: number): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     dispatch(setBtnInProgress(true, userId));
     const response = await unfollowAPI(userId);
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodes.Success) {
         dispatch(unfollow(userId));
     }
     dispatch(setBtnInProgress(false, userId));

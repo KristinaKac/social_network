@@ -1,5 +1,5 @@
 import { ThunkAction } from 'redux-thunk';
-import { auth, getCaptcha, loginAuth, logout } from '../api/api';
+import { ResultCodeForCaptcha, ResultCodes, auth, getCaptcha, loginAuth, logout } from '../api/api';
 import { StateType } from './redux.js';
 
 const SET_USER_DATA = 'SET_USER_DATA';
@@ -56,8 +56,8 @@ export const setCaptcha = (url: string): CaptchaType => ({ type: SET_CAPTCHA, ur
 
 export const authThunk = (): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await auth();
-    if (response.data.resultCode === 0) {
-        const { id, email, login } = response.data.data;
+    if (response.resultCode === ResultCodes.Success) {
+        const { id, email, login } = response.data;
         dispatch(setUserData(id, email, login, true));
     }
 }
@@ -65,13 +65,13 @@ export const authThunk = (): ThunkAction<void, StateType, unknown, actionType> =
 export const loginThunk = (email: string, password: string, rememberMe: boolean, captha: string | null, setStatus: any):
     ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
         const response = await loginAuth(email, password, rememberMe, captha);
-        if (response.data.resultCode === 0) {
+        if (response.resultCode === ResultCodes.Success) {
             dispatch(authThunk());
         } else {
-            if (response.data.resultCode === 10) {
+            if (response.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
                 dispatch(getCaptchaThunk());
             } else {
-                let messages = response.data.messages.length > 0 ? response.data.messages[0] : 'Some error';
+                let messages = response.messages.length > 0 ? response.messages[0] : 'Some error';
                 setStatus({ messages });
             }
         }
@@ -79,13 +79,13 @@ export const loginThunk = (email: string, password: string, rememberMe: boolean,
 
 export const logoutThunk = (): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await logout();
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodes.Success) {
         dispatch(setUserData(null, null, null, false));
     }
 }
 export const getCaptchaThunk = (): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await getCaptcha();
-    dispatch(setCaptcha(response.data.url));
+    dispatch(setCaptcha(response.url));
 }
 
 

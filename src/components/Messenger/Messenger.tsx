@@ -13,8 +13,8 @@ type PropsType = {
 
 const Messenger: FC<PropsType> = (props) => {
 
-    let contactsElements = props.contacts.map(contact => <Contact id={contact.id} name={contact.name} />);
-    let dialogsElements = props.dialogs.map(dialog => <Dialog id={dialog.id} message={dialog.message} />);
+    let contactsElements = props.contacts.map(contact => <Contact key={contact.id} id={contact.id} name={contact.name} />);
+    let dialogsElements = props.dialogs.map(dialog => <Dialog key={dialog.id} id={dialog.id} message={dialog.message} />);
 
     const addMessage = () => {
         props.addMessage();

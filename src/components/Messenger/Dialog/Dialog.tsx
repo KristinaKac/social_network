@@ -8,7 +8,7 @@ type PropsType = {
 
 const Dialog: FC<PropsType> = ({id, message}) => {
     return (
-        <li className={css.message_item}>
+        <li key={id} className={css.message_item}>
             {message}
         </li>
     )

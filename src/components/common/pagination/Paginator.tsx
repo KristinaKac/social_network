@@ -30,7 +30,7 @@ const Paginator: React.FC<PropsType> = ({totalPages ,maxPortionOnPage, portionSi
                 {pages
                     .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
                     .map(page =>
-                        <span className={currentPage === page ? css.activePage : css.page}
+                        <span key={page} className={currentPage === page ? css.activePage : css.page}
                             onClick={(e) => { onClickChangePage(page) }}>{page}</span>
                     )}
                 {portionNumber < portionCount && <button className={css.btn} onClick={() => setPortionNumber(portionNumber + 1)}>&gt;</button>}

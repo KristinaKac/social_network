@@ -1,5 +1,5 @@
 import avatar from '../img/avatar.png';
-import { getStatus, getUser, setPhoto, setProfileSettings, updateStatus } from '../api/api'
+import { ResultCodes, getStatus, getUser, setPhoto, setProfileSettings, updateStatus } from '../api/api'
 import { ThunkAction } from 'redux-thunk';
 import { StateType } from './redux';
 
@@ -101,38 +101,37 @@ export const setEdit = (success: boolean): SetEditType => ({ type: SET_SUCCESS_E
 
 export const getUserThunk = (userId: number): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await getUser(userId);
-    console.log(response)
-    dispatch(setUser(response.data));
+    dispatch(setUser(response));
 }
 
 export const getStatusThunk = (userId: number): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await getStatus(userId);
-    dispatch(setStatus(response.data));
+    dispatch(setStatus(response));
 }
 
 export const updateStatusThunk = (status: string): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await updateStatus(status);
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === ResultCodes.Success) {
         dispatch(setStatus(status));
     }
 }
 
 export const setPhotoThunk = (file: File): ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
     const response = await setPhoto(file);
-    if (response.data.resultCode === 0) {
-        dispatch(setPhotoProfile(response.data.data.photos));
+    if (response.resultCode === ResultCodes.Success) {
+        dispatch(setPhotoProfile(response.data.photos));
     }
 }
 export const setProfileSettingsThunk = (profile: ProfileUserType, setStatus: any):
     ThunkAction<void, StateType, unknown, actionType> => async (dispatch) => {
         const response = await setProfileSettings(profile);
-        if (response.data.resultCode === 0) {
+        if (response.resultCode === ResultCodes.Success) {
             dispatch(getUserThunk(profile.userId));
             dispatch(setEdit(true));
         } else {
-            if (response.data.messages.length > 0) {
+            if (response.messages.length > 0) {
                 dispatch(setEdit(false));
-                setStatus({ message: response.data.messages[0] });
+                setStatus({ message: response.messages[0] });
             }
         }
     }

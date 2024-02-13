@@ -37,7 +37,7 @@ const Profile: FC<PropsType> = (props) => {
         return <Preloader />;
     }
 
-    const postsElements = props.posts.map(post => <Post id={post.id} avatar={post.avatar} text={post.text} />);
+    const postsElements = props.posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />);
 
 
     const setPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {

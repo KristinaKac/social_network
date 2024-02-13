@@ -8,7 +8,7 @@ const initialValue = {
 }
 type InitialValueType = typeof initialValue;
 
-const appReducer = (state = initialValue, action: any):InitialValueType => {
+const appReducer = (state = initialValue, action: any): InitialValueType => {
     switch (action.type) {
         case INITIALIZED_SUCCESS:
             return {
@@ -30,9 +30,8 @@ export const initializedThunk = () => {
     return (dispatch: any) => {
         const promise = dispatch(authThunk());
         promise.then(() => {
-                dispatch(setInitializedSuccess());
-            });
-            
+            dispatch(setInitializedSuccess());
+        });
     }
 }
 export default appReducer;

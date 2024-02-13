@@ -9,7 +9,7 @@ type PropsType = {
 
 const Contact: FC<PropsType> = ({id, name}) => {
     return (
-        <li className={css.contact_item}>
+        <li key={id} className={css.contact_item}>
             <NavLink to={"/messenger/" + id}>{name}</NavLink>
         </li>
     )
