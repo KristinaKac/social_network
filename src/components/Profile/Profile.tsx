@@ -6,79 +6,62 @@ import Preloader from '../common/preloader/Preloader';
 import ProfileInfo from './ProfileInfo';
 import ProfileForm from './ProfileForm/ProfileForm';
 import ModalTextarea from '../common/modalTextarea/ModalTextarea';
+import { AppDispatch, useTypedSelector } from '../../state/redux';
+import { useDispatch } from 'react-redux';
+import { setPhotoThunk } from '../../state/profileReducer';
+import { actions } from '../../state/profileReducer';
 
 type PropsType = {
-    isSuccessEdit: boolean,
-    posts: Array<PostType>,
-    currentUser: ProfileUserType | null,
-    currentStatus: string,
-    textAreaNewPost: string,
     isOwner: boolean,
-    setEdit: (success: boolean) => void,
-    setPhotoThunk: (file: File) => void,
-    setProfileSettingsThunk: (profile: ProfileUserType, setStatus: any) => void,
-    updateStatusThunk: (status: string) => void
-    addPost: () => void
-    changeTextareaPost: (text: string) => void
 }
 
-const Profile: FC<PropsType> = (props) => {
-
-    useEffect(() => {
-        if (props.isSuccessEdit) {
-            setEditMode(false);
-        }
-        props.setEdit(false);
-    }, [props.isSuccessEdit]);
-
+const Profile: FC<PropsType> = ({isOwner}) => {
     const [editMode, setEditMode] = useState(false);
 
-    if (!props.currentUser) {
+    const isSuccessEdit = useTypedSelector((state) => state.profilePage.isSuccessEdit);
+    const currentUser = useTypedSelector((state) => state.profilePage.currentUser);
+    const posts = useTypedSelector((state) => state.profilePage.posts);
+
+    const dispatch: AppDispatch = useDispatch();
+
+    useEffect(() => {
+        if (isSuccessEdit) {
+            setEditMode(false);
+        }
+        dispatch(actions.setEdit(false));
+    }, [isSuccessEdit]);
+
+    if (!currentUser) {
         return <Preloader />;
     }
 
-    const postsElements = props.posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />);
-
-
     const setPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files || e.target.files.length === 0) return;
-
-        props.setPhotoThunk(e.target.files[0]);
+        dispatch(setPhotoThunk(e.target.files[0]));
     }
 
     const editProfile = () => {
         setEditMode(true);
     }
-    const saveChangesProfile = (profile: ProfileUserType, setStatus: any) => {
-        props.setProfileSettingsThunk(profile, setStatus);
-    }
 
     return (
         <div>
             {editMode
-                ? <ProfileForm
-                    saveChangesProfile={saveChangesProfile}
-                    currentUser={props.currentUser} />
+                ? <ProfileForm currentUser={currentUser} />
                 : <ProfileInfo
-                    currentUser={props.currentUser}
-                    isOwner={props.isOwner}
-                    currentStatus={props.currentStatus}
-                    updateStatusThunk={props.updateStatusThunk}
+                    currentUser={currentUser}
+                    isOwner={isOwner}
                     editProfile={editProfile}
                 />
             }
 
             <div className={css.profile_settings}>
-                {props.isOwner && <input type="file" name="" id="" onChange={setPhoto} />}
+                {isOwner && <input type="file" name="" id="" onChange={setPhoto} />}
             </div>
 
-            <ModalTextarea
-                textAreaNewPost={props.textAreaNewPost}
-                addPost={props.addPost}
-                changeTextareaPost={props.changeTextareaPost}
-            />
+            <ModalTextarea />
 
-            {postsElements}
+            {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />)}
 
         </div>
     )

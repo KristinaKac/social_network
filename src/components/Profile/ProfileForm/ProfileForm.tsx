@@ -3,19 +3,19 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import css from '../Profile.module.css'
 
 import ProfileSchema from './ProfileFormValidation';
+import { AppDispatch } from '../../../state/redux';
+import { useDispatch } from 'react-redux';
+import { setProfileSettingsThunk } from '../../../state/profileReducer';
 
 type PropsType = {
     currentUser: ProfileUserType,
-    saveChangesProfile: (
-        profile: ProfileUserType,
-        setStatus: any,
-    ) => void
 }
 
-const ProfileForm: FC<PropsType> = ({ currentUser, saveChangesProfile }) => {
+const ProfileForm: FC<PropsType> = ({ currentUser }) => {
+    const dispatch: AppDispatch = useDispatch();
+    
     return (
         <div className={css.profile}>
-
             <Formik
                 initialValues={{
                     fullName: currentUser.fullName, aboutMe: currentUser.aboutMe,
@@ -30,7 +30,7 @@ const ProfileForm: FC<PropsType> = ({ currentUser, saveChangesProfile }) => {
                         lookingForAJob: values.lookingForAJob,
                         lookingForAJobDescription: values.lookingForAJobDescription
                     }
-                    saveChangesProfile(profile, setStatus);
+                    dispatch(setProfileSettingsThunk(profile, setStatus));
                     setSubmitting(false);
                 }}
             >

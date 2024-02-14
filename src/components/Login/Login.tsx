@@ -1,19 +1,15 @@
 import React, { FC } from 'react';
 import css from './Login.module.css';
 import LoginForm from './LoginForm/LoginForm';
+import { WithRedirectComponentToProfile } from '../../hoc/withRedirectComponent';
 
-type PropsType = {
-    captcha: string | null, 
-    loginThunk: (email: string, password: string, rememberMe: boolean, captcha: string | null, setStatus: any) => void
-}
+const Login = () => {
 
-const Login: FC<PropsType> = ({captcha, loginThunk}) => {
-    
     return (
         <div className={css.login_wrapper}>
-            <LoginForm loginThunk={loginThunk} captcha={captcha} />
+            <LoginForm />
         </div>
     )
 }
 
-export default Login;
+export default WithRedirectComponentToProfile(Login);

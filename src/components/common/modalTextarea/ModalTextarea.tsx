@@ -1,24 +1,24 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import css from './ModalTextarea.module.css';
 import avatar from '../../../img/avatar.png';
+import { AppDispatch, useTypedSelector } from '../../../state/redux';
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../state/profileReducer';
 
-type PropsType = {
-    textAreaNewPost: string
-    addPost: () => void
-    changeTextareaPost: (text: string) => void
-}
 
-const ModalTextarea: FC<PropsType> = ({textAreaNewPost, addPost, changeTextareaPost}) => {
+const ModalTextarea = () => {
+    const dispatch: AppDispatch = useDispatch();
 
     const [modal, setModal] = useState(false);
+    const [post, setPost] = useState('');
 
-    const addText = () => {
+    const addNewPost = () => {
         setDeactiveModal();
-        addPost();
+        dispatch(actions.addPost(post));
     }
     const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.target.value;
-        changeTextareaPost(text);
+        setPost(text);
     }
     const setActiveModal = () => {
         setModal(true)
@@ -39,11 +39,11 @@ const ModalTextarea: FC<PropsType> = ({textAreaNewPost, addPost, changeTextareaP
                     <div className={css.modal_box}>
                         <div className={css.modal_textarea}>
                             <textarea className={css.textarea}
-                                value={textAreaNewPost}
+                                value={post}
                                 onChange={changeTextarea} placeholder="What's on your mind"></textarea>
                         </div>
                         <div>
-                            <button className={css.modal_btn} type="button" onClick={addText}>Post</button>
+                            <button className={css.modal_btn} type="button" onClick={addNewPost}>Post</button>
                         </div>
                     </div>
                 </div>

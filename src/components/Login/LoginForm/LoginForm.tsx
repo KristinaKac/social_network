@@ -2,19 +2,21 @@ import React, { FC } from 'react';
 import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
 import LoginSchema from './LoginFormValidation';
 import css from '../Login.module.css';
+import { AppDispatch, useTypedSelector } from '../../../state/redux';
+import { useDispatch } from 'react-redux';
+import { loginThunk } from '../../../state/authReducer';
 
-type PropsType = {
-    captcha: string | null, 
-    loginThunk: (email: string, password: string, rememberMe: boolean, captcha: string | null, setStatus: any) => void
-}
+const LoginForm = () => {
 
-const LoginForm : FC<PropsType> = ({captcha, loginThunk}) => {
+    const captcha = useTypedSelector((state) => state.auth.captcha);
+    const dispatch: AppDispatch = useDispatch();
+
     return (
         <Formik
             initialValues={{ email: '', password: '', rememberMe: false, captcha: '' }}
             validationSchema={LoginSchema}
             onSubmit={(values, { setSubmitting, setStatus }) => {
-                loginThunk(values.email, values.password, values.rememberMe, values.captcha, setStatus);
+                dispatch(loginThunk(values.email, values.password, values.rememberMe, values.captcha, setStatus));
                 setSubmitting(false);
             }}
         >

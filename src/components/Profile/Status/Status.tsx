@@ -1,14 +1,18 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import { useEffect } from 'react';
+import { AppDispatch } from '../../../state/redux';
+import { useDispatch } from 'react-redux';
+import { updateStatusThunk } from '../../../state/profileReducer';
 
 type PropsType = {
     currentStatus: string,
-    updateStatusThunk: (status: string) => void
 }
 
-const Status: FC<PropsType> = ({ currentStatus, updateStatusThunk }) => {
+const Status: FC<PropsType> = ({ currentStatus }) => {
     const [editMode, setEditMode] = useState(false);
     const [status, setStatus] = useState<string>(currentStatus);
+
+    const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
         setStatus(currentStatus);
@@ -19,7 +23,7 @@ const Status: FC<PropsType> = ({ currentStatus, updateStatusThunk }) => {
     }
     const deactivateEditMode = () => {
         setEditMode(false);
-        updateStatusThunk(status);
+        dispatch(updateStatusThunk(status));
     }
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.target.value);

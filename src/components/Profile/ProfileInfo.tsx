@@ -2,16 +2,18 @@ import React, { FC } from 'react';
 import css from './Profile.module.css'
 import avatar from '../../img/avatar.png'
 import Status from './Status/Status';
+import { AppDispatch, useTypedSelector } from '../../state/redux';
+import { useDispatch } from 'react-redux';
 
 type PropsType = {
-    currentUser: ProfileUserType, 
-    currentStatus: string, 
+    currentUser: ProfileUserType,
     isOwner: boolean, 
-    updateStatusThunk: (status: string) => void, 
     editProfile: () => void
 }
 
-const ProfileInfo: FC<PropsType> = ({currentUser, currentStatus, isOwner, updateStatusThunk, editProfile}) => {
+const ProfileInfo: FC<PropsType> = ({currentUser, isOwner, editProfile}) => {
+
+    const currentStatus = useTypedSelector((state) => state.profilePage.currentStatus);
 
     return (
         <div className={css.profile}>
@@ -22,7 +24,7 @@ const ProfileInfo: FC<PropsType> = ({currentUser, currentStatus, isOwner, update
                 <span className={css.user_name}>{currentUser.fullName}</span>
 
                 {isOwner
-                    ? <Status currentStatus={currentStatus} updateStatusThunk={updateStatusThunk} />
+                    ? <Status currentStatus={currentStatus} />
                     : currentStatus ? <div>{currentStatus}</div> : <div>No status</div>
                 }
 

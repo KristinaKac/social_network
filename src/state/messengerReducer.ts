@@ -14,25 +14,19 @@ const initialValue = {
         { id: 3, message: "Hello" },
         { id: 4, message: "My name is ..." },
     ] as Array<DialogsType>,
-    textAreaNewMessage: 'hello',
 }
 
 const messengerReducer = (state = initialValue, action: ActionType): InitialValueType => {
 
     switch (action.type) {
-        case 'ADD_MESSAGE':
+        case 'SEND_MESSAGE':
             const newMessage = {
                 id: 1,
-                message: state.textAreaNewMessage
+                message: action.text
             }
             return {
                 ...state,
                 dialogs: [...state.dialogs, newMessage]
-            }
-        case 'CHANGE_TEXTAREA_MESSAGE':
-            return {
-                ...state,
-                textAreaNewMessage: action.text,
             }
         default:
             return state;
@@ -40,8 +34,7 @@ const messengerReducer = (state = initialValue, action: ActionType): InitialValu
 }
 
 export const actions = {
-    addMessage: () => ({ type: 'ADD_MESSAGE' } as const),
-    changeTextareaMessage: (text: string) => ({ type: 'CHANGE_TEXTAREA_MESSAGE', text: text} as const),
+    sendMessage: (text: string) => ({ type: 'SEND_MESSAGE', text } as const),
 }
 
 

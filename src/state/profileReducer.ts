@@ -8,7 +8,6 @@ const initialValue = {
         { id: 1, avatar: avatar, text: 'hi' },
         { id: 2, avatar: avatar, text: 'My name is Kristina' },
     ] as Array<PostType>,
-    textAreaNewPost: '',
     currentUser: null as ProfileUserType | null,
     currentStatus: '',
     isSuccessEdit: false,
@@ -23,16 +22,11 @@ const profileReducer = (state = initialValue, action: actionType): InitialValueT
             const newPost = {
                 id: 5,
                 avatar: avatar,
-                text: state.textAreaNewPost
+                text: action.post
             }
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-            }
-        case 'CHANGE_TEXTAREA_POST':
-            return {
-                ...state,
-                textAreaNewPost: action.text
             }
         case 'SET_USER':
             return {
@@ -63,7 +57,7 @@ type actionType = InferActionType<typeof actions>;
 type ThunkType = BaseThunkType<actionType>;
 
 export const actions = {
-    addPost: () => ({ type: 'ADD_POST' } as const),
+    addPost: (post: string) => ({ type: 'ADD_POST', post } as const),
     changeTextareaPost: (text: string) => ({ type: 'CHANGE_TEXTAREA_POST', text: text } as const),
     setUser: (user: ProfileUserType) => ({ type: 'SET_USER', user } as const),
     setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
