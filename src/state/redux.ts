@@ -1,10 +1,11 @@
-import { Action, applyMiddleware, combineReducers, compose, createStore } from "redux";
+import { Action, AnyAction, applyMiddleware, combineReducers, compose, createStore } from "redux";
 import messengerReducer from "./messengerReducer";
 import profileReducer from "./profileReducer";
 import usersReducer from "./usersReducer";
 import authReducer from "./authReducer";
-import { ThunkAction, thunk as thunkMiddleWare } from 'redux-thunk';
+import { ThunkAction, ThunkDispatch, thunk as thunkMiddleWare } from 'redux-thunk';
 import appReducer from "./appReducer";
+import { TypedUseSelectorHook, useSelector } from "react-redux";
 
 type ReducersType = typeof reducers;
 export type StateType = ReturnType<ReducersType>;
@@ -21,6 +22,10 @@ let reducers = combineReducers({
 export type InferActionType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;
 
 export type BaseThunkType<A extends Action = Action, R = Promise<void>> = ThunkAction<R, StateType, unknown, A>;
+
+export type AppDispatch = ThunkDispatch<StateType, any, AnyAction>;
+
+export const useTypedSelector: TypedUseSelectorHook<StateType> = useSelector;
 
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

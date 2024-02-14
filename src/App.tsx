@@ -4,8 +4,6 @@ import NavBar from './components/NavBar/NavBar';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import MessengerContainer from './components/Messenger/MessengerContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
-import UsersContainer from './components/Users/UsersContainer';
-import HeaderContainer from './components/Header/HeaderContainer';
 
 import { initializedThunk } from './state/appReducer';
 import { connect } from 'react-redux';
@@ -13,6 +11,8 @@ import Preloader from './components/common/preloader/Preloader';
 import { compose } from 'redux';
 import { StateType } from './state/redux';
 import LoginContainer from './components/Login/LoginContainer';
+import UsersPage from './components/Users/UsersPage';
+import HeaderPage from './components/Header/HeaderPage';
 
 type MapStatePropsType = {
   isInitialized: boolean, 
@@ -33,14 +33,14 @@ const App: FC<PropsType> = ({ isInitialized, initializedThunk }) => {
   return (
     <BrowserRouter>
         <div className="app_wrapper">
-          <HeaderContainer />
+          <HeaderPage />
           <NavBar />
           <div className='app_wrapper_content'>
             <Routes>
               <Route path='/login' element={<LoginContainer />}></Route>
               <Route path='/messenger/*' element={<MessengerContainer />}></Route>
               <Route path='/profile/:userId?' element={<ProfileContainer />}></Route>
-              <Route path='/users/*' element={<UsersContainer />}></Route>
+              <Route path='/users/*' element={<UsersPage />}></Route>
             </Routes>
           </div>
         </div>

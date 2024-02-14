@@ -41,3 +41,7 @@ type DialogsType = {
     id: number,
     message: string
 }
+type FilterType = {
+    term: string,
+    friend: null | boolean
+}

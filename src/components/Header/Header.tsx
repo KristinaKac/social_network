@@ -2,14 +2,16 @@ import React, { FC } from 'react';
 import css from './Header.module.css';
 import img from '../../img/logo.png'
 import { NavLink } from 'react-router-dom';
+import { AppDispatch, useTypedSelector } from '../../state/redux';
+import { useDispatch } from 'react-redux';
+import { logoutThunk } from '../../state/authReducer';
 
-type PropsType = {
-    isAuth: boolean,
-    login: string | null,
-    logoutThunk: () => void
-}
+const Header = () => {
 
-const Header: FC<PropsType> = ({isAuth, login, logoutThunk}) => {
+    const isAuth = useTypedSelector((state) => state.auth.isAuth);
+    const login = useTypedSelector((state) => state.auth.login);
+
+    const dispatch: AppDispatch = useDispatch();
 
     return (
         <div className={css.header}>
@@ -19,7 +21,7 @@ const Header: FC<PropsType> = ({isAuth, login, logoutThunk}) => {
                 {isAuth
                     ? <div>
                         <div>{login}</div>
-                        <button onClick={logoutThunk}>Logout</button>
+                        <button onClick={() => dispatch(logoutThunk)}>Logout</button>
                     </div>
                     : <NavLink to='/login'>Login</NavLink>}
             </div>

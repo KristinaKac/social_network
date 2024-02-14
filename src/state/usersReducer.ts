@@ -10,6 +10,10 @@ const initialValue = {
     portionSize: 10,
     isFetching: false,
     isBtnInProgress: [] as Array<number>,
+    filter: {
+        term: '',
+        friend: null as boolean | null
+    }
 }
 type InitialValueType = typeof initialValue;
 
@@ -65,12 +69,17 @@ const usersReducer = (state = initialValue, action: ActionType): InitialValueTyp
                     : state.isBtnInProgress.filter(id => id !== action.id)
 
             }
+        case 'SET_FILTER':
+            return {
+                ...state,
+                filter: action.filter
+            }
         default:
             return state;
     }
 }
 
-const actions = {
+export const actions = {
     follow: (id: number) => ({ type: 'FOLLOW', id: id } as const),
     unfollow: (id: number) => ({ type: 'UNFOLLOW', id: id } as const),
     setUsers: (users: Array<UsersType>) => ({ type: 'SET_USERS', users } as const),
@@ -78,17 +87,20 @@ const actions = {
     setCurrentPage: (page: number) => ({ type: 'SET_CURRENT_PAGE', page } as const),
     setFetching: (fetch: boolean) => ({ type: 'IS_FETCHING', fetch } as const),
     setBtnInProgress: (value: boolean, id: number) => ({ type: 'IS_BTN_IN_PROGRESS', value, id } as const),
+    setFilter: (filter: FilterType) => ({ type: 'SET_FILTER', filter } as const),
 }
 type ActionType = InferActionType<typeof actions>;
 type ThunkType = BaseThunkType<ActionType>;
 
 
-export const getUsersThunk = (currentPage: number, maxUsersOnPage: number): ThunkType =>
+export const getUsersThunk = (currentPage: number, maxUsersOnPage: number, filter: FilterType): ThunkType =>
     async (dispatch) => {
         dispatch(actions.setFetching(false));
-        const response = await usersAPI.getUsers(currentPage, maxUsersOnPage)
+        const response = await usersAPI.getUsers(currentPage, maxUsersOnPage, filter);
         dispatch(actions.setFetching(true));
         dispatch(actions.setCurrentPage(currentPage));
+        dispatch(actions.setFilter(filter));
+
         dispatch(actions.setTotalPages(response.totalCount));
         dispatch(actions.setUsers(response.items));
     }

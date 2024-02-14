@@ -7,8 +7,10 @@ type GetUsersResponseType = {
 }
 
 export const usersAPI = {
-    getUsers: (currentPage: number, maxUsersOnPage: number) => {
-        return instance.get<GetUsersResponseType>(`users?page=${currentPage}&count=${maxUsersOnPage}`).then(response => response.data);
+    getUsers: (currentPage: number, maxUsersOnPage: number, {term = '', friend = null}: FilterType) => {
+        return instance.get<GetUsersResponseType>
+            (`users?page=${currentPage}&count=${maxUsersOnPage}&term=${term}&friend=${friend}`)
+            .then(response => response.data);
     },
     followAPI: (id: number) => {
         return instance.post<ResponseType>(`follow/${id}`).then(response => response.data);
