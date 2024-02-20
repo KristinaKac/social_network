@@ -45,3 +45,10 @@ type FilterType = {
     term: string,
     friend: null | boolean
 }
+type ChatMessagesType = {
+    userId: number,
+    userName: string,
+    message: string,
+    photo: string
+}
+type StatusType = 'ready' | 'pending' | 'error';

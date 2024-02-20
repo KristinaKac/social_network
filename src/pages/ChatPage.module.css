@@ -1,0 +1,95 @@
+.messages_block {
+    height: 75vh;
+    overflow-y: auto;
+    background-color: white;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+
+    padding: 15px;
+    box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
+}
+
+.message_wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0px 10px;
+    column-gap: 10px;
+}
+
+.auth_user_message {
+    justify-content: right;
+}
+
+.other_user_message {
+    justify-content: left;
+}
+
+.message {
+    display: flex;
+    flex-direction: column;
+    row-gap: 6px;
+    margin: 10px;
+    padding: 15px;
+    background-color: #ececec;
+    border-radius: 14px;
+    font-size: 13px;
+    max-width: 250px;
+}
+
+.message_photo img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.message_user_name {
+    font-weight: 700;
+    color: #2a5885;
+}
+
+.message_user_message {
+    word-wrap: break-word;
+}
+
+.form_wrapper {
+    border-top: 1px solid #ececec;
+    border-bottom-left-radius: 14px;
+    border-bottom-right-radius: 14px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form_message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px 35px;
+    column-gap: 15px;
+}
+
+.form_message textarea {
+    width: 100%;
+    resize: vertical;
+    box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
+    padding: 10px 15px;
+    border-radius: 7px;
+    border: 1px solid #ececec;
+    outline-color: #ececec;
+    
+}
+
+.send_msg_btn {
+    padding: 7px 10px;
+    border-radius: 7px;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+}
+.send_msg_btn img {
+    width: 25px;
+    height: 25px;
+
+}

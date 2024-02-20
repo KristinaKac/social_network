@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, StateType, useTypedSelector } from '../../state/redux';
 import { getUsersThunk } from '../../state/usersReducer';
 import UsersSearchForm from './UsersSearchForm';
+import { useLocation, useNavigate } from 'react-router-dom';
+import queryString from 'query-string';
 
 
 const Users = () => {
@@ -23,9 +25,32 @@ const Users = () => {
 
     const dispatch: AppDispatch = useDispatch();
 
+    let location = useLocation();
+    const navigate = useNavigate();
+
     useEffect(() => {
-        dispatch(getUsersThunk(currentPage, maxPortionOnPage, filter));
-    }, [currentPage, maxPortionOnPage]);
+        navigate(`/users?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`)
+    }, [filter, currentPage]);
+
+    useEffect(() => {
+        const parsed = queryString.parse(location.search) as {term: string, friend: string, page: string};
+
+        let actualFilter = filter;
+        
+        let actualPage = currentPage;
+
+        if(parsed.term) actualFilter = {...actualFilter, term: parsed.term as string};
+        if(parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false};
+        if(parsed.page) actualPage = Number(parsed.page);
+        
+        dispatch(getUsersThunk(actualPage, maxPortionOnPage, actualFilter));
+    }, []);
+
+
+    // useEffect(() => {
+    //     navigate(`/users?term=${filter.term}&friend=${filter.friend}`)
+    //     dispatch(getUsersThunk(currentPage, maxPortionOnPage, filter));
+    // }, [currentPage, maxPortionOnPage, filter]);
 
     const onClickChangePage = (page: number) => {
         dispatch(getUsersThunk(page, maxPortionOnPage, filter));

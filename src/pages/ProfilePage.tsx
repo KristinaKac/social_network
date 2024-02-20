@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import {
   getUserThunk,
   getStatusThunk
-} from '../../state/profileReducer';
-import Profile from './Profile';
+} from '../state/profileReducer';
+import Profile from '../components/Profile/Profile';
 import { useNavigate, useParams } from "react-router-dom";
-import { AppDispatch, StateType, useTypedSelector } from '../../state/redux';
-import { withRouter, PropsWithRouter } from '../../hoc/withRouter';
+import { AppDispatch, StateType, useTypedSelector } from '../state/redux';
+import { withRouter, PropsWithRouter } from '../hoc/withRouter';
 import { useDispatch } from 'react-redux';
 
 const ProfilePage: React.FC<PropsWithRouter> = ({router}) => {

@@ -6,6 +6,7 @@ import authReducer from "./authReducer";
 import { ThunkAction, ThunkDispatch, thunk as thunkMiddleWare } from 'redux-thunk';
 import appReducer from "./appReducer";
 import { TypedUseSelectorHook, useSelector } from "react-redux";
+import { chatReducer } from "./chatReducer";
 
 type ReducersType = typeof reducers;
 export type StateType = ReturnType<ReducersType>;
@@ -17,6 +18,7 @@ let reducers = combineReducers({
     usersPage: usersReducer,
     auth: authReducer,
     app: appReducer,
+    chatPage: chatReducer
 });
 
 export type InferActionType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never;

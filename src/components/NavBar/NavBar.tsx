@@ -14,7 +14,7 @@ const NavBar = () => {
             </li>
             <li className={css.nav_item}>
                 <img src={message} alt="messages" />
-                <NavLink to="/messenger" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Messenger</NavLink>
+                <NavLink to="/chat" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Chat</NavLink>
             </li>
             <li className={css.nav_item}>
                 <img src={users} alt="users" />

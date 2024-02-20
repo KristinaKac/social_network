@@ -6,12 +6,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { initializedThunk } from './state/appReducer';
 import Preloader from './components/common/preloader/Preloader';
 import { AppDispatch, StateType, useTypedSelector } from './state/redux';
-import UsersPage from './components/Users/UsersPage';
+import UsersPage from './pages/UsersPage';
 import HeaderPage from './components/Header/HeaderPage';
-import LoginPage from './components/Login/LoginPage';
-import MessengerPage from './components/Messenger/MessengerPage';
-import ProfilePage from './components/Profile/ProfilePage';
+import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 import { useDispatch } from 'react-redux';
+import ChatPage from './pages/ChatPage';
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -31,7 +31,7 @@ const App = () => {
           <div className='app_wrapper_content'>
             <Routes>
               <Route path='/login' element={<LoginPage />}></Route>
-              <Route path='/messenger/*' element={<MessengerPage />}></Route>
+              <Route path='/chat' element={<ChatPage />}></Route>
               <Route path='/profile/:userId?' element={<ProfilePage />}></Route>
               <Route path='/users/*' element={<UsersPage />}></Route>
             </Routes>

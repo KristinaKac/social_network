@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from "react-redux";
-import Users from "./Users";
-import Preloader from '../common/preloader/Preloader';
-import { StateType } from '../../state/redux';
+import Users from "../components/Users/Users";
+import Preloader from '../components/common/preloader/Preloader';
+import { StateType } from '../state/redux';
 
 
 

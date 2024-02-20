@@ -5,3 +5,4 @@ declare module '*.jpeg';
 declare module '*.gif';
 declare module '*.js';
 declare module '*.jsx';
+declare module 'uuid';
