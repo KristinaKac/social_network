@@ -14,16 +14,18 @@ const Header = () => {
     const dispatch: AppDispatch = useDispatch();
 
     return (
-        <div className={css.header}>
-            <img src={img} alt="" />
+        <div className={css.header_wrapper}>
+            <div className={css.header}>
+                <img src={img} alt="" />
 
-            <div className={css.auth_block}>
-                {isAuth
-                    ? <div>
-                        <div>{login}</div>
-                        <button onClick={() => dispatch(logoutThunk())}>Logout</button>
-                    </div>
-                    : <NavLink to='/login'>Login</NavLink>}
+                <div className={css.auth_block}>
+                    {isAuth
+                        ? <div>
+                            <div>{login}</div>
+                            <button onClick={() => dispatch(logoutThunk())}>Logout</button>
+                        </div>
+                        : <NavLink to='/login'>Login</NavLink>}
+                </div>
             </div>
         </div>
     )

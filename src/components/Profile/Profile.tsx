@@ -8,14 +8,15 @@ import ProfileForm from './ProfileForm/ProfileForm';
 import ModalTextarea from '../common/modalTextarea/ModalTextarea';
 import { AppDispatch, useTypedSelector } from '../../state/redux';
 import { useDispatch } from 'react-redux';
-import { setPhotoThunk } from '../../state/profileReducer';
 import { actions } from '../../state/profileReducer';
+import Followers from './Followers/Followers';
+import { NavLink } from 'react-router-dom';
 
 type PropsType = {
     isOwner: boolean,
 }
 
-const Profile: FC<PropsType> = ({isOwner}) => {
+const Profile: FC<PropsType> = ({ isOwner }) => {
     const [editMode, setEditMode] = useState(false);
 
     const isSuccessEdit = useTypedSelector((state) => state.profilePage.isSuccessEdit);
@@ -35,11 +36,6 @@ const Profile: FC<PropsType> = ({isOwner}) => {
         return <Preloader />;
     }
 
-    const setPhoto = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files || e.target.files.length === 0) return;
-        dispatch(setPhotoThunk(e.target.files[0]));
-    }
-
     const editProfile = () => {
         setEditMode(true);
     }
@@ -54,15 +50,26 @@ const Profile: FC<PropsType> = ({isOwner}) => {
                     editProfile={editProfile}
                 />
             }
-
-            <div className={css.profile_settings}>
-                {isOwner && <input type="file" name="" id="" onChange={setPhoto} />}
+            <div className={css.profile_body}>
+                <div className={css.posts_area}>
+                    <ModalTextarea />
+                    {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />)}
+                </div>
+                <div className={css.followers_area}>
+                    <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
+                    <Followers />
+                </div>
             </div>
-
-            <ModalTextarea />
-
-            {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />)}
-
+            <div className={css.profile_body}>
+                <div className={css.posts_area}>
+                    <ModalTextarea />
+                    {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />)}
+                </div>
+                <div className={css.followers_area}>
+                    <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
+                    <Followers />
+                </div>
+            </div>
         </div>
     )
 }

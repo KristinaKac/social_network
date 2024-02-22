@@ -1,14 +1,25 @@
-.header {
+.header_wrapper {
     width: 100%;
     grid-area: h;
     background-color: white;
-    border-radius: 14px;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
+    margin-bottom: 10px;
     padding: 10px;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    z-index: 100;
 }
 
 .header img {
