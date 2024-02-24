@@ -25,18 +25,21 @@ const App = () => {
 
   return (
     <BrowserRouter>
-        <div className="app_wrapper">
-          <HeaderPage />
-          <NavBar />
-          <div className='app_wrapper_content'>
-            <Routes>
-              <Route path='/login' element={<LoginPage />}></Route>
-              <Route path='/chat' element={<ChatPage />}></Route>
-              <Route path='/profile/:userId?' element={<ProfilePage />}></Route>
-              <Route path='/users/*' element={<UsersPage />}></Route>
-            </Routes>
-          </div>
+      <HeaderPage />
+
+
+      <div className="app_wrapper">
+        <NavBar />
+        <div className='app_wrapper_content'>
+          <Routes>
+            <Route path='/login' element={<LoginPage />}></Route>
+            <Route path='/chat' element={<ChatPage />}></Route>
+            <Route path='/profile/:userId?' element={<ProfilePage />}></Route>
+            <Route path='/users/*' element={<UsersPage />}></Route>
+          </Routes>
         </div>
+      </div>
+
     </BrowserRouter>
   )
 }

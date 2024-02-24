@@ -2,11 +2,9 @@ import React, { ChangeEvent, ChangeEventHandler, DetailedHTMLProps, FC, InputHTM
 import css from './Profile.module.css'
 import avatar from '../../img/avatar.png'
 import Status from './Status/Status';
-import { AppDispatch, useTypedSelector } from '../../state/redux';
-import { useDispatch } from 'react-redux';
-import { Button, Popover, Modal, Form, Upload } from 'antd';
-import { setPhotoThunk } from '../../state/profileReducer';
-import { EditOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { useTypedSelector } from '../../state/redux';
+import { Button, Popover } from 'antd';
+import { EditOutlined, InfoCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import ModalSetPhoto from './Modal/ModalSetPhoto';
 import ModalDetailInfo from './Modal/ModalDetailInfo';
 import ModalSetBack from './Modal/ModalSetBack';
@@ -29,7 +27,9 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
 
     const content = (
         <div>
-            <button onClick={() => setIsModalChangeImgOpen(true)} className={css.edit_photo_btn} type="button">Обновить фотографию</button>
+            <Button onClick={() => setIsModalChangeImgOpen(true)} className={css.edit_photo_btn} icon={<UploadOutlined />}>
+                Обновить фотографию
+            </Button>
         </div>
     );
 
@@ -52,12 +52,12 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
                 :
                 <div className={css.background_profile}></div>
             }
-            
+
             <div className={css.profile}>
                 <div className={css.photo_area}>
                     {currentUser.photos && currentUser.photos.large
                         ? (currentUser.userId === authUserId ?
-                            <Popover content={content} >
+                            <Popover placement='bottom' content={content} >
                                 <img src={currentUser.photos.large} alt="avatar" />
                             </Popover>
                             : <img src={currentUser.photos.large} alt="avatar" />)
@@ -67,12 +67,8 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
                 <div className={css.info_user_area}>
                     <span className={css.user_name}>{currentUser.fullName}</span>
 
-                    {isOwner
-                        ? <Status currentStatus={currentStatus} />
-                        : currentStatus ? <div>{currentStatus}</div> : <div>No status</div>
-                    }
+                    <Button style={{border: 'none', padding: '0px'}} onClick={() => setIsModalDetailInfoOpen(true)} icon={<InfoCircleOutlined />}>Подробнее</Button>
 
-                    <Button onClick={() => setIsModalDetailInfoOpen(true)} icon={<InfoCircleOutlined />}>Подробнее</Button>
                 </div>
                 <div className={css.edit_profile_area}>
                     {isOwner && <Button onClick={editProfile}>Редактировать профиль</Button>}
@@ -82,6 +78,7 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
                 <ModalDetailInfo isModalDetailInfoOpen={isModalDetailInfoOpen}
                     setIsModalDetailInfoOpen={setIsModalDetailInfoOpen}
                     currentUser={currentUser}
+                    isOwner={isOwner}
                 />
                 <ModalSetBack isModalCoverOpen={isModalCoverOpen} setIsModalCoverOpen={setIsModalCoverOpen} />
             </div>

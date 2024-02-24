@@ -4,9 +4,14 @@ import avatar from '../../../img/avatar.png';
 import { AppDispatch, useTypedSelector } from '../../../state/redux';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../../state/profileReducer';
+import { PlusOutlined } from '@ant-design/icons';
+
+type PropsType = {
+    authUser: ProfileUserType | null
+}
 
 
-const ModalTextarea = () => {
+const ModalTextarea: React.FC<PropsType> = ({ authUser }) => {
     const dispatch: AppDispatch = useDispatch();
 
     const [modal, setModal] = useState(false);
@@ -30,9 +35,9 @@ const ModalTextarea = () => {
     return (
         <div>
             <div onClick={setActiveModal} className={css.add_post}>
-                <span><img src={avatar} alt="user" /></span>
+                <img className={css.user_photo} src={authUser ? authUser.photos?.small : avatar} alt="avatar" />
                 <input className={css.post_input} placeholder="What's on your mind" type="text" />
-                <span className={css.post_btn}>+</span>
+                <span className={css.post_btn}>{<PlusOutlined />}</span>
             </div>
             {modal &&
                 <div className={css.modal}>

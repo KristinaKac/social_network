@@ -1,5 +1,6 @@
 import { ResultCodeForCaptcha, ResultCodes } from '../api/api';
 import { AuthAPI } from '../api/auth-api';
+import { profileAPI } from '../api/profile-api';
 import { securityAPI } from '../api/security-api';
 import { BaseThunkType, InferActionType } from './redux.js';
 
@@ -8,7 +9,8 @@ const initialValue = {
     email: null as string | null,
     login: null as string | null,
     isAuth: false,
-    captcha: null as string | null
+    captcha: null as string | null,
+    authUser: null as ProfileUserType | null
 }
 
 const authReducer = (state = initialValue, action: ActionType): InitialValueType => {
@@ -23,6 +25,11 @@ const authReducer = (state = initialValue, action: ActionType): InitialValueType
                 ...state,
                 captcha: action.url
             }
+        case 'SET_AUTH_USER':
+            return {
+                ...state,
+                authUser: action.user
+            }
         default:
             return state;
     }
@@ -33,6 +40,7 @@ export const actions = {
         type: 'SET_USER_DATA', data: { id, email, login, isAuth }
     } as const),
     setCaptcha: (url: string) => ({ type: 'SET_CAPTCHA', url } as const),
+    setAuthUser: (user: ProfileUserType) => ({ type: 'SET_AUTH_USER', user } as const),
 }
 
 export const authThunk = (): ThunkType => async (dispatch) => {
@@ -67,6 +75,10 @@ export const logoutThunk = (): ThunkType => async (dispatch) => {
 export const getCaptchaThunk = (): ThunkType => async (dispatch) => {
     const response = await securityAPI.getCaptcha();
     dispatch(actions.setCaptcha(response.url));
+}
+export const getAuthUserThunk = (userId: number): ThunkType => async (dispatch) => {
+    const response = await profileAPI.getUser(userId);
+    dispatch(actions.setAuthUser(response))
 }
 export default authReducer;
 

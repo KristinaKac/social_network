@@ -1,13 +1,35 @@
 .post {
+    background-color: white;
+    padding: 20px;
+    margin: 18px 0;
+    border-radius: 14px;
+}
+
+.post_header {
     display: flex;
     justify-content: left;
     align-items: center;
+    column-gap: 10px;
+    margin-bottom: 8px;
+}
 
+.post_header_userName {
+    font-size: 13px;
+    text-decoration: none;
+    color: #2a5885;
+    font-weight: 600;
 }
-.post img {
-    width: 30px;
-    height: 30px;
-}
-.text {
 
+.post_header_userPhoto {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
+.post_body {
+    max-width: 509px;
+}
+.post_body_text {
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+

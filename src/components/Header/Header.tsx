@@ -1,30 +1,54 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import css from './Header.module.css';
 import img from '../../img/logo.png'
 import { NavLink } from 'react-router-dom';
 import { AppDispatch, useTypedSelector } from '../../state/redux';
 import { useDispatch } from 'react-redux';
-import { logoutThunk } from '../../state/authReducer';
+import { getAuthUserThunk, logoutThunk } from '../../state/authReducer';
+import avatar from '../../img/avatar.png';
+import { DownOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Button, Popover } from 'antd';
 
 const Header = () => {
 
-    const isAuth = useTypedSelector((state) => state.auth.isAuth);
-    const login = useTypedSelector((state) => state.auth.login);
-
     const dispatch: AppDispatch = useDispatch();
+
+    const isAuth = useTypedSelector((state) => state.auth.isAuth);
+    const authId = useTypedSelector((state) => state.auth.id);
+    const authUser = useTypedSelector((state) => state.auth.authUser);
+
+    useEffect(() => {
+        if (!authId) return;
+        dispatch(getAuthUserThunk(authId));
+    }, [authId]);
+
+    const content = (
+        <div>
+            <Button className={css.log_btn} onClick={() => dispatch(logoutThunk())} icon={<LogoutOutlined />}>
+                Выйти
+            </Button>
+        </div>
+    );
+
 
     return (
         <div className={css.header_wrapper}>
             <div className={css.header}>
-                <img src={img} alt="" />
+                <div className={css.header_area}>
+                    <img className={css.logo} src={img} alt="" />
 
-                <div className={css.auth_block}>
-                    {isAuth
-                        ? <div>
-                            <div>{login}</div>
-                            <button onClick={() => dispatch(logoutThunk())}>Logout</button>
-                        </div>
-                        : <NavLink to='/login'>Login</NavLink>}
+                    <div className={css.auth_block}>
+                        {isAuth
+                            ? <div>
+                                <Popover trigger='click' placement='bottomRight' content={content} >
+                                    <button className={css.auth_button}>
+                                        <img className={css.header_avatar} src={authUser ? authUser.photos?.small : avatar} alt="avatar" />
+                                        <DownOutlined />
+                                    </button>
+                                </Popover>
+                            </div>
+                            : <NavLink to='/login'>Login</NavLink>}
+                    </div>
                 </div>
             </div>
         </div>

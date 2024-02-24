@@ -18,10 +18,10 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-rows: 60px 1fr;
-  grid-template-columns: 1fr 4fr;
+  /* grid-template-rows: 60px 1fr; */
+  grid-template-columns: 2fr 7fr;
   grid-template-areas:
-    "h h"
+    /* "h h" */
     "n c";
 }
 

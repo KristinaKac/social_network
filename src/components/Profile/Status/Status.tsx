@@ -30,7 +30,7 @@ const Status: FC<PropsType> = ({ currentStatus }) => {
     }
 
     return (
-        <div>
+        <React.Fragment>
             {!editMode &&
                 <div>
                     <span onDoubleClick={activateEditMode}>
@@ -44,7 +44,7 @@ const Status: FC<PropsType> = ({ currentStatus }) => {
                         onBlur={deactivateEditMode} type="text" value={status} />
                 </div>
             }
-        </div>
+        </React.Fragment>
     )
 }
 export default Status;

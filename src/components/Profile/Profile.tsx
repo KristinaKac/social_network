@@ -22,6 +22,7 @@ const Profile: FC<PropsType> = ({ isOwner }) => {
     const isSuccessEdit = useTypedSelector((state) => state.profilePage.isSuccessEdit);
     const currentUser = useTypedSelector((state) => state.profilePage.currentUser);
     const posts = useTypedSelector((state) => state.profilePage.posts);
+    const authUser = useTypedSelector((state) => state.auth.authUser);
 
     const dispatch: AppDispatch = useDispatch();
 
@@ -52,18 +53,12 @@ const Profile: FC<PropsType> = ({ isOwner }) => {
             }
             <div className={css.profile_body}>
                 <div className={css.posts_area}>
-                    <ModalTextarea />
-                    {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />)}
-                </div>
-                <div className={css.followers_area}>
-                    <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
-                    <Followers />
-                </div>
-            </div>
-            <div className={css.profile_body}>
-                <div className={css.posts_area}>
-                    <ModalTextarea />
-                    {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} />)}
+
+                    
+                    <ModalTextarea authUser={authUser} />
+
+                    {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} currentUser={currentUser} />)}
+
                 </div>
                 <div className={css.followers_area}>
                     <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
