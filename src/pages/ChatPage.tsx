@@ -5,6 +5,8 @@ import { AppDispatch, useTypedSelector } from "../state/redux";
 import css from './ChatPage.module.css';
 import cn from 'classnames';
 import iconMessage from '../img/send_chat.png';
+import { Avatar } from "antd";
+import { UserOutlined } from '@ant-design/icons';
 
 const ChatPage = () => {
     return (
@@ -117,7 +119,10 @@ const Message: React.FC<{ message: ChatMessagesType }> = React.memo(({ message }
                 :
                 <li className={cn(css.message_wrapper, css.other_user_message)}>
                     <div className={css.message_photo}>
-                        <img src={message.photo} alt="" />
+                        {message.photo
+                            ? <img src={message.photo} alt="avatar" />
+                            : <Avatar size={36} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
+                        }
                     </div>
                     <div className={css.message}>
                         <div className={css.message_user_name}>{message.userName}</div>

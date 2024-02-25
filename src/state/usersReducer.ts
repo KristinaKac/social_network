@@ -6,7 +6,7 @@ const initialValue = {
     users: [] as Array<UsersType>,
     totalPages: 0,
     currentPage: 1,
-    maxPortionOnPage: 5,
+    maxPortionOnPage: 15,
     portionSize: 10,
     isFetching: false,
     isBtnInProgress: [] as Array<number>,

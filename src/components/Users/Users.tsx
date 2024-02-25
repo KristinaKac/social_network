@@ -66,7 +66,7 @@ const Users = () => {
                 portionSize={portionSize}
             />
 
-            <h2>People you can follow</h2>
+            <h2 className={css.user_page_header}>Пользователи: </h2>
 
             <UsersSearchForm />
 

@@ -16,15 +16,15 @@ const NavBar = () => {
                 <ul className={css.nav_list}>
                     <li className={css.nav_item}>
                         <img src={profile} alt="profile" />
-                        <NavLink to="/profile" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Profile</NavLink>
+                        <NavLink to="/profile" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Профиль</NavLink>
                     </li>
                     <li className={css.nav_item}>
                         <img src={message} alt="messages" />
-                        <NavLink to="/chat" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Chat</NavLink>
+                        <NavLink to="/chat" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Мессенджер</NavLink>
                     </li>
                     <li className={css.nav_item}>
                         <img src={users} alt="users" />
-                        <NavLink to="/users" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Users</NavLink>
+                        <NavLink to="/users" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Пользователи</NavLink>
                     </li>
                 </ul>
                 :

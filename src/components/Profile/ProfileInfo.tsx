@@ -1,13 +1,12 @@
-import React, { ChangeEvent, ChangeEventHandler, DetailedHTMLProps, FC, InputHTMLAttributes, LegacyRef, MutableRefObject, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 import css from './Profile.module.css'
-import avatar from '../../img/avatar.png'
-import Status from './Status/Status';
 import { useTypedSelector } from '../../state/redux';
-import { Button, Popover } from 'antd';
+import { Avatar, Button, Popover } from 'antd';
 import { EditOutlined, InfoCircleOutlined, UploadOutlined } from '@ant-design/icons';
 import ModalSetPhoto from './Modal/ModalSetPhoto';
 import ModalDetailInfo from './Modal/ModalDetailInfo';
 import ModalSetBack from './Modal/ModalSetBack';
+import { UserOutlined } from '@ant-design/icons';
 
 type PropsType = {
     currentUser: ProfileUserType,
@@ -56,18 +55,19 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
             <div className={css.profile}>
                 <div className={css.photo_area}>
                     {currentUser.photos && currentUser.photos.large
-                        ? (currentUser.userId === authUserId ?
+                        ? (currentUser.userId === authUserId
+                            ?
                             <Popover placement='bottom' content={content} >
-                                <img src={currentUser.photos.large} alt="avatar" />
+                                <img className={css.user_photo} src={currentUser.photos.large} alt="avatar" />
                             </Popover>
-                            : <img src={currentUser.photos.large} alt="avatar" />)
-                        : <img src={avatar} alt="avatar" />
+                            : <img className={css.user_photo} src={currentUser.photos.large} alt="avatar" />)
+                        : <Avatar className={css.user_photo} size={150} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
                     }
                 </div>
                 <div className={css.info_user_area}>
                     <span className={css.user_name}>{currentUser.fullName}</span>
 
-                    <Button style={{border: 'none', padding: '0px'}} onClick={() => setIsModalDetailInfoOpen(true)} icon={<InfoCircleOutlined />}>Подробнее</Button>
+                    <Button style={{ border: 'none', padding: '0px' }} onClick={() => setIsModalDetailInfoOpen(true)} icon={<InfoCircleOutlined />}>Подробнее</Button>
 
                 </div>
                 <div className={css.edit_profile_area}>
