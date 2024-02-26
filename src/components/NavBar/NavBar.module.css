@@ -3,7 +3,7 @@
     background-color: #ececec;
 }
 .nav_back {
-    width: 100%;
+    min-width: 260px;
 }
 .nav_list {
     position: fixed;
@@ -15,7 +15,7 @@
 }
 
 .nav_item {
-    width: 100%;
+    width: 175px;
     display: flex;
     column-gap: 10px;
     align-items: center;
