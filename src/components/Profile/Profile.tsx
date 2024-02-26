@@ -54,14 +54,14 @@ const Profile: FC<PropsType> = ({ isOwner }) => {
             <div className={css.profile_body}>
                 <div className={css.posts_area}>
 
-                    
+
                     <ModalTextarea authUser={authUser} />
 
-                    {posts.map(post => <Post key={post.id} id={post.id} avatar={post.avatar} text={post.text} currentUser={currentUser} />)}
+                    {posts.map(post => <Post post={post} key={post.id} currentUser={currentUser} />)}
 
                 </div>
                 <div className={css.followers_area}>
-                    <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
+                        <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
                     <Followers />
                 </div>
             </div>

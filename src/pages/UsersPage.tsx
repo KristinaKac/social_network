@@ -4,20 +4,19 @@ import Users from "../components/Users/Users";
 import Preloader from '../components/common/preloader/Preloader';
 import { StateType } from '../state/redux';
 
-
-
 const UsersPage = () => {
 
     const isFetching = useSelector((state: StateType) => state.usersPage.isFetching);
 
     return (
-        <div>
-            {
-                !isFetching ?
-                    <Preloader /> : null
-            }
-            <Users />
-        </div>
+        <React.Fragment>
+                {
+                    isFetching
+                        ? null
+                        : <Preloader />
+                }
+                <Users />
+        </React.Fragment>
     )
 }
 export default UsersPage;

@@ -1,23 +1,14 @@
 import React, { ChangeEvent, FC, useState } from 'react';
 import css from './ModalTextarea.module.css';
 import avatar from '../../../img/avatar.png';
-import { AppDispatch, useTypedSelector } from '../../../state/redux';
+import { AppDispatch } from '../../../state/redux';
 import { useDispatch } from 'react-redux';
 import { actions } from '../../../state/profileReducer';
 
 import { PlusOutlined } from '@ant-design/icons';
-import { Modal, Upload } from 'antd';
+import { Button, Modal, Upload } from 'antd';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
-
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
-const getBase64 = (file: FileType): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });
+import { UploadOutlined } from '@ant-design/icons';
 
 type PropsType = {
     authUser: ProfileUserType | null
@@ -29,10 +20,13 @@ const ModalTextarea: React.FC<PropsType> = ({ authUser }) => {
 
     const [modal, setModal] = useState(false);
     const [post, setPost] = useState('');
+    let [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const addNewPost = () => {
         setDeactiveModal();
-        dispatch(actions.addPost(post));
+        dispatch(actions.addPost(post, fileList));
+        setPost('');
+        setFileList([]);
     }
     const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.target.value;
@@ -44,95 +38,47 @@ const ModalTextarea: React.FC<PropsType> = ({ authUser }) => {
     const setDeactiveModal = () => {
         setModal(false);
     }
-
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([
-      {
-        uid: '-1',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-2',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-3',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-4',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-xxx',
-        percent: 50,
-        name: 'image.png',
-        status: 'uploading',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      },
-      {
-        uid: '-5',
-        name: 'image.png',
-        status: 'error',
-      },
-    ]);
-    const handleCancel = () => setPreviewOpen(false);
-
-    const handlePreview = async (file: UploadFile) => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj as FileType);
+    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+        if (newFileList.length > 6) {
+            const removeItems = newFileList.length - 6;
+            setFileList([...newFileList.splice(6, removeItems)])
         }
-
-        setPreviewImage(file.url || (file.preview as string));
-        setPreviewOpen(true);
-        setPreviewTitle(file.name || file.url!.substring(file.url!.lastIndexOf('/') + 1));
-    };
-
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
         setFileList(newFileList);
-
-    const uploadButton = (
-        <button style={{ border: 0, background: 'none' }} type="button">
-            <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </button>
-    );
+    }
 
     return (
         <div>
             <div onClick={setActiveModal} className={css.add_post}>
                 <img className={css.user_photo} src={authUser ? authUser.photos?.small : avatar} alt="avatar" />
-                <input className={css.post_input} placeholder="What's on your mind" type="text" />
+                <input className={css.post_input} placeholder="Что у вас нового?" type="text" />
                 <span className={css.post_btn}>{<PlusOutlined />}</span>
             </div>
             {modal &&
                 <div className={css.modal}>
                     <div className={css.modal_box}>
+
                         <div className={css.modal_textarea}>
                             <textarea className={css.textarea}
                                 value={post}
-                                onChange={changeTextarea} placeholder="What's on your mind"></textarea>
+                                onChange={changeTextarea} placeholder="Что у вас нового?"></textarea>
                         </div>
                         <Upload
+                            multiple
                             listType="picture-card"
+                            action="http://localhost:3000/profile"
+                            showUploadList={{ showRemoveIcon: true, showPreviewIcon: false }}
+                            accept='.png,.jpeg,.jpg'
                             fileList={fileList}
-                            onPreview={handlePreview}
                             onChange={handleChange}
+                            beforeUpload={(file, fileList) => {
+                                return false
+                            }}
                         >
-                            {fileList.length >= 6 ? null : uploadButton}
+                            {fileList.length >= 6 ? null : <Button type="primary" icon={<UploadOutlined />} ghost></Button>}
                         </Upload>
-                        <div>
-                            <button className={css.modal_btn} type="button" onClick={addNewPost}>Post</button>
+                        <div className={css.modal_btns}>
+                            <Button onClick={addNewPost} type="primary">Опубликовать</Button>
+                            <Button onClick={setDeactiveModal}>Закрыть</Button>
                         </div>
                     </div>
                 </div>

@@ -2,13 +2,13 @@ import * as Yup from 'yup';
 
 const LoginSchema = Yup.object().shape({
     email: Yup.string()
-        .min(3, 'Must be longer than 3 characters')
-        .max(30, 'Too Long')
-        .required('Required'),
+        .min(3, 'Должно быть не менее 8 символов')
+        .max(30, 'Не более 30 символов')
+        .required('Поле должно быть заполнено'),
     password: Yup.string()
-        .min(8, 'Must be longer than 8 characters')
-        .max(30, 'Too Long')
-        .required('Required'),
+        .min(8, 'Должно быть не менее 8 символов')
+        .max(30, 'Не более 30 символов')
+        .required('Поле должно быть заполнено'),
 });
 
 export default LoginSchema;

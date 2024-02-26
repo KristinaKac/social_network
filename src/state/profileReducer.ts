@@ -3,11 +3,19 @@ import avatar from '../img/avatar.png';
 import { ResultCodes } from '../api/api'
 import { BaseThunkType, InferActionType } from './redux';
 import { usersAPI } from '../api/users-api';
+import { UploadFile } from "antd"
+
+type PostType = {
+    id: number,
+    avatar: string,
+    text: string,
+    imgs: UploadFile[],
+}
 
 const initialValue = {
     posts: [
-        { id: 1, avatar: avatar, text: 'hi' },
-        { id: 2, avatar: avatar, text: 'My name is Kristina' },
+        { id: 1, avatar: avatar, text: 'hi', imgs: [] },
+        { id: 2, avatar: avatar, text: 'My name is Kristina', imgs: [] },
     ] as Array<PostType>,
     currentUser: null as ProfileUserType | null,
     currentStatus: '',
@@ -23,9 +31,10 @@ const profileReducer = (state = initialValue, action: actionType): InitialValueT
     switch (action.type) {
         case 'ADD_POST':
             const newPost = {
-                id: 5,
+                id: performance.now(),
                 avatar: avatar,
-                text: action.post
+                text: action.post,
+                imgs: action.imgs
             }
             return {
                 ...state,
@@ -70,7 +79,7 @@ type actionType = InferActionType<typeof actions>;
 type ThunkType = BaseThunkType<actionType>;
 
 export const actions = {
-    addPost: (post: string) => ({ type: 'ADD_POST', post } as const),
+    addPost: (post: string, imgs: UploadFile[]) => ({ type: 'ADD_POST', post, imgs } as const),
     changeTextareaPost: (text: string) => ({ type: 'CHANGE_TEXTAREA_POST', text: text } as const),
     setUser: (user: ProfileUserType) => ({ type: 'SET_USER', user } as const),
     setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),

@@ -1,3 +1,67 @@
 .login_wrapper {
-    background: radial-gradient(circle, rgba(240,209,222,1) 0%, rgba(148,187,233,1) 63%);
+    width: 400px;
+    background-color: white;
+    padding: 45px 30px;
+    border-radius: 14px; 
+}
+.login_wrapper h2 {
+    font-size: 20px;
+    font-weight: 300;
+    margin-bottom: 22px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    row-gap: 23px;
+}
+.form_control {
+    width: 100%;
+}
+.form_input {
+    width: 100%;
+    border: 1px solid #ececec;
+    border-radius: 7px;
+    padding: 8px 12px;
+    outline: none;
+}
+.form_input:hover {
+    border: 1px solid #1677ff;
+    transition: all 400ms ease;
+    /* transform: scale(110%); */
+}
+.form_input:focus {
+    border: 1px solid #1677ff;
+}
+.form_submit {
+    width: 100%;
+    border-radius: 7px;
+    padding: 12px;
+    cursor: pointer;
+    background-color: #1677ff;
+    border: none;
+    color: white;
+}
+.form_submit:hover, .form_submit:focus{
+    background-color: #156be3;
+    transition: all 400ms ease;
+    transform: scale(110%);
+}
+.form_control_checkbox {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.form_checkbox {
+    margin-left: 8px;
+    font-size: 13px;
+    color: black;
+}
+.error, .messageError {
+    font-size: 13px;
+    color: #e64646;
+    font-weight: 400px;
+}
+.form_captcha {
+    width: 200px;
+    height: auto;
 }

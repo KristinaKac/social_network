@@ -45,6 +45,7 @@
 .message_user_name {
     font-weight: 700;
     color: #2a5885;
+    text-decoration: none;
 }
 
 .message_user_message {

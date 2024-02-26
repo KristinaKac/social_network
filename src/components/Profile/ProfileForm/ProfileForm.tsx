@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import css from '../Profile.module.css'
+import css from './ProfileForm.module.css'
 
 import ProfileSchema from './ProfileFormValidation';
 import { AppDispatch } from '../../../state/redux';
@@ -13,9 +13,10 @@ type PropsType = {
 
 const ProfileForm: FC<PropsType> = ({ currentUser }) => {
     const dispatch: AppDispatch = useDispatch();
-    
+
     return (
-        <div className={css.profile}>
+        <div className={css.profile_form}>
+            <h2 className={css.profile_form_header}>Редактирование профиля</h2>
             <Formik
                 initialValues={{
                     fullName: currentUser.fullName, aboutMe: currentUser.aboutMe,
@@ -35,34 +36,34 @@ const ProfileForm: FC<PropsType> = ({ currentUser }) => {
                 }}
             >
                 {({ isSubmitting, status }) => (
-                    <Form>
-                        <div>
-                            <label htmlFor="fullName">Name</label>
-                            <Field type='text' name='fullName' />
+                    <Form className={css.form}>
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="fullName">Изменить имя: </label>
+                            <Field className={css.form_input} type='text' name='fullName' />
                         </div>
                         <ErrorMessage name="fullName" component="div" />
-                        <div>
-                            <label htmlFor="aboutMe">About Me</label>
-                            <Field type='text' name='aboutMe' />
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="aboutMe">Краткая информация: </label>
+                            <Field className={css.form_input} type='text' name='aboutMe' />
                         </div>
                         <ErrorMessage name="aboutMe" component="div" />
 
-                        <div>
-                            <label htmlFor="lookingForAJob">Looking For a Job</label>
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="lookingForAJob">Поиск работы: </label>
                             <Field type='checkbox' name='lookingForAJob' />
                         </div>
                         <ErrorMessage name="lookingForAJob" component="div" />
 
-                        <div>
-                            <label htmlFor="lookingForAJobDescription">Looking For a Job Description</label>
-                            <Field type='text' name='lookingForAJobDescription' />
+                        <div className={css.form_control}>
+                            <label className={css.form_label} htmlFor="lookingForAJobDescription">Информация о поиске работы: </label>
+                            <Field className={css.form_input} type='text' name='lookingForAJobDescription' />
                         </div>
                         <ErrorMessage name="lookingForAJobDescription" component="div" />
 
                         {status && status.message && <div className={css.messageError}>{status.message}</div>}
 
-                        <button type="submit" disabled={isSubmitting}>
-                            Save
+                        <button className={css.form_submit} type="submit" disabled={isSubmitting}>
+                            Сохранить
                         </button>
                     </Form>
                 )}

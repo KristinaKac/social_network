@@ -35,7 +35,9 @@ const Header = () => {
         <div className={css.header_wrapper}>
             <div className={css.header}>
                 <div className={css.header_area}>
-                    <img className={css.logo} src={img} alt="" />
+                    <NavLink to={isAuth ? '/profile' : 'login'}>
+                        <img className={css.logo} src={img} alt="" />
+                    </NavLink>
 
                     <div className={css.auth_block}>
                         {isAuth
@@ -47,7 +49,9 @@ const Header = () => {
                                     </button>
                                 </Popover>
                             </div>
-                            : <NavLink to='/login'>Login</NavLink>}
+                            : <Button style={{ padding: '0px 28px', border: 'none', backgroundColor: 'white' }}>
+                                <NavLink to='/login'>Login</NavLink>
+                            </Button>}
                     </div>
                 </div>
             </div>

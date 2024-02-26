@@ -6,13 +6,14 @@ import img2 from '../../../img/1667569019_41-sportishka-com-p-samie-krasivie-vid
 import cn from 'classnames';
 import { Button, Image } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
+import { UploadFile } from "antd"
 
 
 type PropsType = {
-
+    imgs: UploadFile[]
 }
 
-const ImgGallery: FC<PropsType> = ({ }) => {
+const ImgGallery: FC<PropsType> = ({ imgs }) => {
 
     const [photoPreview, setPhotoPreview] = useState<string>('');
     const [modal, setModal] = useState<boolean>(false);
@@ -24,52 +25,51 @@ const ImgGallery: FC<PropsType> = ({ }) => {
         setPhotoPreview(url);
         setModal(true);
     }
-    const ref = useRef<HTMLDivElement>(null);
 
     const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
         setPhotoPreview('');
         setModal(false)
     }
 
-    const imgCount: number = 3;
-
-    const photoStyle =
-        <div className={css.photo} onClick={previewPhoto} style={{
+    const imgCount: number = imgs.length;
+    const getImg = (img: any) => {
+        return <div className={css.photo} onClick={previewPhoto} style={{
             width: '100%',
             height: '100%',
-            backgroundImage: `url("${img2}")`,
+            backgroundImage: `url(${URL.createObjectURL(img.originFileObj)})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center'
         }}></div>
+    }
 
     return (
         <React.Fragment>
             <div className={css.container}>
                 {imgCount === 1 &&
                     <div className={css.big}>
-                        {photoStyle}
+                        {getImg(imgs[0])}
                     </div>
                 }
                 {imgCount === 2 &&
                     <React.Fragment>
                         <div className={css.vertical}>
-                            {photoStyle}
+                            {getImg(imgs[0])}
                         </div>
                         <div className={css.vertical}>
-                            {photoStyle}
+                            {getImg(imgs[1])}
                         </div>
                     </React.Fragment>
                 }
                 {imgCount === 3 &&
                     <React.Fragment>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[0])}
                         </div>
                         <div className={css.vertical}>
-                            {photoStyle}
+                            {getImg(imgs[1])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[2])}
                         </div>
 
                     </React.Fragment>
@@ -77,57 +77,57 @@ const ImgGallery: FC<PropsType> = ({ }) => {
                 {imgCount === 4 &&
                     <React.Fragment>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[0])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[1])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[2])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[3])}
                         </div>
                     </React.Fragment>
                 }
                 {imgCount === 5 &&
                     <React.Fragment>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[0])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[1])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[2])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[3])}
                         </div>
                         <div className={css.horizontal}>
-                            {photoStyle}
+                            {getImg(imgs[4])}
                         </div>
                     </React.Fragment>
                 }
                 {imgCount === 6 &&
                     <React.Fragment>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[0])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[1])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[2])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[3])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[4])}
                         </div>
                         <div className={css.normal}>
-                            {photoStyle}
+                            {getImg(imgs[5])}
                         </div>
                     </React.Fragment>
                 }

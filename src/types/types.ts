@@ -1,8 +1,3 @@
-type PostType = {
-    id: number,
-    avatar: string,
-    text: string
-}
 type ProfileContactsType = {
     github: string
     vk: string

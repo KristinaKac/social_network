@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { ErrorMessage, Field, Form, Formik, FormikProps } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import LoginSchema from './LoginFormValidation';
 import css from '../Login.module.css';
 import { AppDispatch, useTypedSelector } from '../../../state/redux';
 import { useDispatch } from 'react-redux';
 import { loginThunk } from '../../../state/authReducer';
+import { Input } from 'antd';
 
 const LoginForm = () => {
 
@@ -21,26 +22,26 @@ const LoginForm = () => {
             }}
         >
             {({ isSubmitting, status }) => (
-                <Form>
-                    <div>
-                        <Field type='text' name='email' placeholder='Email...' />
+                <Form className={css.form}>
+                    <div className={css.form_control}>
+                        <Field className={css.form_input} type='text' name='email' placeholder='Почта...' />
                     </div>
-                    <ErrorMessage name="email" component="div" />
-                    <div>
-                        <Field type='password' name='password' placeholder='Password...' />
+                    <ErrorMessage className={css.error} name="email" component="div" />
+                    <div className={css.form_control}>
+                        <Field className={css.form_input} type='password' name='password' placeholder='Пароль...' />
                     </div>
-                    <ErrorMessage name="password" component="div" />
-                    <div>
-                        <label htmlFor="rememberMe">Remember Me</label>
+                    <ErrorMessage className={css.error} name="password" component="div" />
+                    <div className={css.form_control_checkbox}>
                         <Field type='checkbox' name='rememberMe' />
+                        <label className={css.form_checkbox} htmlFor="rememberMe">Сохранить вход</label>
                     </div>
                     {status && status.messages && <div className={css.messageError}>{status.messages}</div>}
 
-                    {captcha && <img src={captcha} alt='captcha'/>}
-                    {captcha && <Field type='text' name='captcha' placeholder='Captcha...' />}
+                    {captcha && <img className={css.form_captcha} src={captcha} alt='captcha'/>}
+                    {captcha && <Field className={css.form_input} type='text' name='captcha' placeholder='Captcha...' />}
                     
-                    <button type="submit" disabled={isSubmitting}>
-                        Log In
+                    <button className={css.form_submit} type="submit" disabled={isSubmitting}>
+                        Вход
                     </button>
                 </Form>
             )}

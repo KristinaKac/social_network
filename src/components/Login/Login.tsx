@@ -7,6 +7,7 @@ const Login = () => {
 
     return (
         <div className={css.login_wrapper}>
+            <h2>Вход в SocNetw</h2>
             <LoginForm />
         </div>
     )

@@ -65,10 +65,8 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
                     }
                 </div>
                 <div className={css.info_user_area}>
-                    <span className={css.user_name}>{currentUser.fullName}</span>
-
+                    <span className={css.user_name}>{currentUser.fullName}</span> <br></br>
                     <Button style={{ border: 'none', padding: '0px' }} onClick={() => setIsModalDetailInfoOpen(true)} icon={<InfoCircleOutlined />}>Подробнее</Button>
-
                 </div>
                 <div className={css.edit_profile_area}>
                     {isOwner && <Button onClick={editProfile}>Редактировать профиль</Button>}

@@ -16,6 +16,7 @@ import ChatPage from './pages/ChatPage';
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
   const isInitialized = useTypedSelector((state) => state.app.initialized);
+  const isAuth = useTypedSelector((state) => state.auth.isAuth);
 
   useEffect(() => {
     dispatch(initializedThunk());
@@ -25,21 +26,21 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <HeaderPage />
-
-
-      <div className="app_wrapper">
-        <NavBar />
-        <div className='app_wrapper_content'>
-          <Routes>
-            <Route path='/login' element={<LoginPage />}></Route>
-            <Route path='/chat' element={<ChatPage />}></Route>
-            <Route path='/profile/:userId?' element={<ProfilePage />}></Route>
-            <Route path='/users/*' element={<UsersPage />}></Route>
-          </Routes>
+    <HeaderPage />
+      <div className={isAuth ? '' : 'app'}>
+        <div className={isAuth ? "app_wrapper_auth" : "app_wrapper_not_auth"}>
+          <NavBar />
+          <div className='app_wrapper_content'>
+            <Routes>
+              <Route path='/login' element={<LoginPage />}></Route>
+              <Route path='/chat' element={<ChatPage />}></Route>
+              <Route path='/profile/:userId?' element={<ProfilePage />}></Route>
+              <Route path='/users/*' element={<UsersPage />}></Route>
+              <Route path='/' element={<ProfilePage />}></Route>
+            </Routes>
+          </div>
         </div>
       </div>
-
     </BrowserRouter>
   )
 }

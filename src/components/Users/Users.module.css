@@ -65,12 +65,6 @@
     color: white;
 }
 
-.user_page_header {
-    font-size: 14px;
-    color: black;
-    margin: 10px 0px;
-}
-
 .form_search {
     display: flex;
     justify-content: stretch;
@@ -79,6 +73,7 @@
     padding: 12px 20px;
     border-radius: 14px;
     column-gap: 18px;
+    margin-top: 15px;
 }
 
 .form_input_term {
@@ -112,4 +107,5 @@
 .form_btn_search:hover {
     border: #0d6efd 1px solid;
 }
+
 

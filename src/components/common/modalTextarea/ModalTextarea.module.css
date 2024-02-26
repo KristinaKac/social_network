@@ -28,10 +28,12 @@
     border-radius: 14px;
     padding: 24px;
 }
+
 .modal_textarea {
     width: 100%;
     height: auto;
 }
+
 .textarea {
     border: none;
     outline: none;
@@ -53,6 +55,7 @@
     border-radius: 7px;
     font-size: 16px;
 }
+
 .add_post {
     display: flex;
     justify-content: stretch;
@@ -78,9 +81,17 @@
     justify-content: center;
     align-items: center;
 }
+
 .user_photo {
     width: 30px;
     height: auto;
     margin: 6px 12px;
     border-radius: 50%;
+}
+
+.modal_btns {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    column-gap: 10px;
 }

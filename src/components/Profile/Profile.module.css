@@ -31,6 +31,9 @@
     display: flex;
     justify-content: right;
 }
+.info_user_area {
+    display: block;
+}
 
 .user_photo {
     position: absolute;
@@ -135,7 +138,7 @@
 .title_friends {
     text-decoration: none;
     color: black;
-
+    padding: 0px 10px;
 }
 
 .follower_card {

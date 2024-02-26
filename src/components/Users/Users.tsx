@@ -66,8 +66,6 @@ const Users = () => {
                 portionSize={portionSize}
             />
 
-            <h2 className={css.user_page_header}>Пользователи: </h2>
-
             <UsersSearchForm />
 
             <ul className={css.users_list}>

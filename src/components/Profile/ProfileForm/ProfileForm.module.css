@@ -1,0 +1,58 @@
+.profile_form {
+    border-radius: 14px;
+    background-color: white;
+    box-shadow: 0px, 4px, 16px, #ccc;
+    padding: 25px 50px;
+    box-sizing: content-box;
+}
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 18px;
+    column-gap: 50px;
+}
+.form_control {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+}
+
+.form_input {
+    width: 100%;
+    border: 1px solid #ececec;
+    border-radius: 7px;
+    padding: 8px 12px;
+    outline: none;
+}
+.form_input:hover {
+    border: 1px solid #1677ff;
+    transition: all 400ms ease;
+    /* transform: scale(110%); */
+}
+.form_input:focus {
+    border: 1px solid #1677ff;
+}
+.form_label {
+    font-size: 13px;
+    color: #626d7a;
+}
+.form_submit {
+    background-color: #1677ff;
+    border: none;
+    padding: 10px 19px;
+    color: white;
+    cursor: pointer;
+    border-radius: 7px;
+    width: 150px;
+}
+.form_submit:hover, .form_submit:focus{
+    background-color: #156be3;
+    transition: all 400ms ease;
+    transform: scale(110%);
+}
+.profile_form_header {
+    font-size: 18px;
+    margin-bottom: 34px;
+}

@@ -1,10 +1,11 @@
 import React from 'react';
-import preloader from '../../../img/preloader.gif'
+import { Spin } from 'antd';
+import css from './Preloader.module.css';
 
 const Preloader = () => {
     return (
-        <div>
-            <img style={{ width: '50px', height: '50px' }} src={preloader} alt="preloader" />
+        <div className={css.loader}>
+            <Spin size={'large'} />
         </div>
     )
 }

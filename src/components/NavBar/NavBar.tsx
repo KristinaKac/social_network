@@ -5,6 +5,7 @@ import users from '../../img/users.png';
 import message from '../../img/message.png';
 import profile from '../../img/profile.png';
 import { useTypedSelector } from '../../state/redux';
+import { UserOutlined, MessageOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 
 const NavBar = () => {
 
@@ -12,28 +13,29 @@ const NavBar = () => {
     return (
         <React.Fragment>
             {isAuth
-                ?
-                <ul className={css.nav_list}>
-                    <li className={css.nav_item}>
-                        <img src={profile} alt="profile" />
-                        <NavLink to="/profile" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Профиль</NavLink>
-                    </li>
-                    <li className={css.nav_item}>
-                        <img src={message} alt="messages" />
-                        <NavLink to="/chat" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Мессенджер</NavLink>
-                    </li>
-                    <li className={css.nav_item}>
-                        <img src={users} alt="users" />
-                        <NavLink to="/users" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Пользователи</NavLink>
-                    </li>
-                </ul>
-                :
-                <ul className={css.nav_list}>
-                    <li className={css.nav_item}>
-                        {/* <img  alt="login" /> */}
-                        <NavLink to="/login" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>Login</NavLink>
-                    </li>
-                </ul>
+                &&
+                <div className={css.nav_back}>
+                    <ul className={css.nav_list}>
+                        <NavLink to="/profile" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>
+                            <li className={css.nav_item}>
+                                <UserOutlined />
+                                <span>Профиль</span>
+                            </li>
+                        </NavLink>
+                        <NavLink to="/chat" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>
+                            <li className={css.nav_item}>
+                                <MessageOutlined />
+                                <span>Мессенджер</span>
+                            </li>
+                        </NavLink>
+                        <NavLink to="/users" className={link => link.isActive ? `${css.active} ${css.nav_link}` : `${css.nav_link}`}>
+                            <li className={css.nav_item}>
+                                <UsergroupAddOutlined />
+                                <span>Пользователи</span>
+                            </li>
+                        </NavLink>
+                    </ul>
+                </div>
             }
         </React.Fragment>
 

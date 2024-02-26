@@ -7,6 +7,7 @@ import cn from 'classnames';
 import iconMessage from '../img/send_chat.png';
 import { Avatar } from "antd";
 import { UserOutlined } from '@ant-design/icons';
+import { NavLink } from "react-router-dom";
 
 const ChatPage = () => {
     return (
@@ -103,31 +104,30 @@ const Messages = () => {
 const Message: React.FC<{ message: ChatMessagesType }> = React.memo(({ message }) => {
     const authUserId = useTypedSelector((state) => state.auth.id);
 
+    const messageInfo =
+        < div className={css.message} >
+            <NavLink className={css.message_user_name} to={`/profile/${message.userId}`}>{message.userName}</NavLink>
+            <div className={css.message_user_message}>{message.message}</div>
+        </div >
+
+    const messageUserPhoto =
+        <NavLink to={`/profile/${message.userId}`} className={css.message_photo}>
+            {message.photo
+                ? <img src={message.photo} alt="avatar" />
+                : <Avatar size={36} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
+            }
+        </NavLink>
+
     return (
         <React.Fragment>
             {message.userId === authUserId
-                ?
-                <li className={cn(css.message_wrapper, css.auth_user_message)}>
-                    <div className={css.message}>
-                        <div className={css.message_user_name}>{message.userName}</div>
-                        <div className={css.message_user_message}>{message.message}</div>
-                    </div>
-                    <div className={css.message_photo}>
-                        <img src={message.photo} alt="" />
-                    </div>
+                ? <li className={cn(css.message_wrapper, css.auth_user_message)}>
+                    {messageInfo}
+                    {messageUserPhoto}
                 </li>
-                :
-                <li className={cn(css.message_wrapper, css.other_user_message)}>
-                    <div className={css.message_photo}>
-                        {message.photo
-                            ? <img src={message.photo} alt="avatar" />
-                            : <Avatar size={36} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
-                        }
-                    </div>
-                    <div className={css.message}>
-                        <div className={css.message_user_name}>{message.userName}</div>
-                        <div className={css.message_user_message}>{message.message}</div>
-                    </div>
+                : <li className={cn(css.message_wrapper, css.other_user_message)}>
+                    {messageUserPhoto}
+                    {messageInfo}
                 </li>
             }
         </React.Fragment >
