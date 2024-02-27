@@ -20,7 +20,6 @@ const ProfileInfo: FC<PropsType> = ({ currentUser, isOwner, editProfile }) => {
     const [isModalDetailInfoOpen, setIsModalDetailInfoOpen] = useState<boolean>(false);
     const [isModalCoverOpen, setIsModalCoverOpen] = useState<boolean>(false);
 
-    const currentStatus = useTypedSelector((state) => state.profilePage.currentStatus);
     const authUserId = useTypedSelector((state) => state.auth.id);
     const cover = useTypedSelector((state) => state.profilePage.cover);
 

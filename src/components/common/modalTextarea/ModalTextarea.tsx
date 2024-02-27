@@ -24,7 +24,7 @@ const ModalTextarea: React.FC<PropsType> = ({ authUser }) => {
 
     const addNewPost = () => {
         setDeactiveModal();
-        dispatch(actions.addPost(post, fileList));
+        dispatch(actions.addPost(post, fileList, [], []));
         setPost('');
         setFileList([]);
     }

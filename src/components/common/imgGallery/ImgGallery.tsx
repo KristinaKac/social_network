@@ -38,7 +38,8 @@ const ImgGallery: FC<PropsType> = ({ imgs }) => {
             height: '100%',
             backgroundImage: `url(${URL.createObjectURL(img.originFileObj)})`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center'
+            backgroundPosition: 'center',
+            borderRadius: '5px',
         }}></div>
     }
 

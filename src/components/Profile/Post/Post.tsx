@@ -1,16 +1,22 @@
-import React, { FC } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import css from './Post.module.css';
 import { NavLink } from 'react-router-dom';
 import ImgGallery from '../../common/imgGallery/ImgGallery';
-import { Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Divider, Modal } from 'antd';
+import { UserOutlined, HeartOutlined, CommentOutlined } from '@ant-design/icons';
 import { UploadFile } from "antd"
+import { useDispatch } from 'react-redux';
+import { AppDispatch, useTypedSelector } from '../../../state/redux';
+import { actions } from '../../../state/profileReducer';
+import Comments from './Comments';
 
 type PostType = {
     id: number,
     avatar: string,
     text: string,
     imgs: UploadFile[],
+    likes: number[],
+    comments: PostCommentType[]
 }
 
 type PropsType = {
@@ -19,8 +25,36 @@ type PropsType = {
 }
 
 const Post: FC<PropsType> = ({ post, currentUser }) => {
+    const dispatch: AppDispatch = useDispatch();
+    const authId = useTypedSelector((state) => state.auth.id);
+    const authUser = useTypedSelector((state) => state.auth.authUser);
+
+    const setLikes = (e: React.MouseEvent<HTMLElement>) => {
+        dispatch(actions.setPostLikes(post.id, authId as number));
+    }
+
+    const [commentValue, setComment] = useState<string>('');
 
 
+    const changeTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        const text = e.target.value;
+        setComment(text);
+    }
+    const addPostComment = () => {
+        if (commentValue !== '') {
+            dispatch(actions.addPostComment(post.id, authUser as ProfileUserType, commentValue));
+            setComment('');
+        }
+    }
+
+    const [open, setOpen] = useState(false);
+
+    const openModalPostComments = () => {
+        setOpen(true);
+    }
+    const handleCancel = () => {
+        setOpen(false);
+    };
 
     return (
         <div className={css.post}>
@@ -37,6 +71,37 @@ const Post: FC<PropsType> = ({ post, currentUser }) => {
                 </div>
                 <ImgGallery imgs={post.imgs} />
             </div>
+            <div className={css.post_footer}>
+                <Button onClick={setLikes} className={css.footer_btn}>
+                    <HeartOutlined />
+                    {post.likes.length !== 0 && post.likes.length}
+                </Button>
+                <Button onClick={openModalPostComments} className={css.footer_btn}>
+                    <CommentOutlined />
+                    {post.comments.length !== 0 && post.comments.length}
+                </Button>
+            </div>
+            <Modal
+                open={open}
+                title="Комментарии"
+                onCancel={handleCancel}
+                footer={[
+                    <Button key="back" onClick={handleCancel}>
+                        Закрыть
+                    </Button>,
+                ]}
+            >
+                <ul className={css.comments_list}>
+                    {post.comments.map(comment => <Comments comment={comment} />)}
+                </ul>
+                <div className={css.modal_textarea}>
+                    <textarea className={css.textarea}
+                        value={commentValue}
+                        onChange={changeTextarea}
+                        placeholder="Написать комментарий..."></textarea>
+                </div>
+                <Button onClick={() => addPostComment()} type="primary">Отправить</Button>
+            </Modal>
         </div>
     )
 }

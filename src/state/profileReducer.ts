@@ -10,12 +10,14 @@ type PostType = {
     avatar: string,
     text: string,
     imgs: UploadFile[],
+    likes: number[],
+    comments: Array<PostCommentType>
 }
 
 const initialValue = {
     posts: [
-        { id: 1, avatar: avatar, text: 'hi', imgs: [] },
-        { id: 2, avatar: avatar, text: 'My name is Kristina', imgs: [] },
+        { id: 1, avatar: avatar, text: 'hi', imgs: [], likes: [], comments: [] },
+        { id: 2, avatar: avatar, text: 'My name is Kristina', imgs: [], likes: [], comments: [] },
     ] as Array<PostType>,
     currentUser: null as ProfileUserType | null,
     currentStatus: '',
@@ -34,7 +36,9 @@ const profileReducer = (state = initialValue, action: actionType): InitialValueT
                 id: performance.now(),
                 avatar: avatar,
                 text: action.post,
-                imgs: action.imgs
+                imgs: action.imgs,
+                likes: action.likes,
+                comments: action.comments,
             }
             return {
                 ...state,
@@ -70,6 +74,28 @@ const profileReducer = (state = initialValue, action: actionType): InitialValueT
                 ...state,
                 followers: action.followers
             }
+        case 'SET_POST_LIKES':
+            return {
+                ...state,
+                posts: state.posts.map((post, i, arr) => {
+                    if (post.id === action.postId && !post.likes.includes(action.authUserId)) {
+                        arr[i].likes.push(action.authUserId);
+                    } else if (post.id === action.postId && post.likes.includes(action.authUserId)) {
+                        arr[i].likes = arr[i].likes.filter(item => item !== action.authUserId);
+                    }
+                    return arr[i];
+                })
+            }
+        case 'SET_POST_COMMENTS':
+            return {
+                ...state,
+                posts: state.posts.map((post, i, arr) => {
+                    if (post.id === action.postId) {
+                        arr[i].comments.push({ user: action.user, text: action.text });
+                    }
+                    return arr[i];
+                })
+            }
         default:
             return state;
     }
@@ -79,7 +105,7 @@ type actionType = InferActionType<typeof actions>;
 type ThunkType = BaseThunkType<actionType>;
 
 export const actions = {
-    addPost: (post: string, imgs: UploadFile[]) => ({ type: 'ADD_POST', post, imgs } as const),
+    addPost: (post: string, imgs: UploadFile[], likes: number[], comments: PostCommentType[]) => ({ type: 'ADD_POST', post, imgs, likes, comments } as const),
     changeTextareaPost: (text: string) => ({ type: 'CHANGE_TEXTAREA_POST', text: text } as const),
     setUser: (user: ProfileUserType) => ({ type: 'SET_USER', user } as const),
     setStatus: (status: string) => ({ type: 'SET_STATUS', status } as const),
@@ -87,6 +113,8 @@ export const actions = {
     setCover: (img: File) => ({ type: 'SET_COVER', img } as const),
     setEdit: (success: boolean) => ({ type: 'SET_SUCCESS_EDIT', success } as const),
     setFollowers: (followers: Array<UsersType>) => ({ type: 'SET_FOLLOWERS', followers } as const),
+    setPostLikes: (postId: number, authUserId: number) => ({ type: 'SET_POST_LIKES', postId, authUserId } as const),
+    addPostComment: (postId: number, user: ProfileUserType, text: string) => ({ type: 'SET_POST_COMMENTS', postId, user, text } as const)
 }
 
 export const getUserThunk = (userId: number): ThunkType => async (dispatch) => {

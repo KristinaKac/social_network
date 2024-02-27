@@ -7,27 +7,24 @@
 }
 
 .horizontal {
-  background: darkblue;
+  background: white;
   grid-column: span 2;
 }
 
 .vertical {
-  background: blue;
+  background: white;
   grid-row: span 2;
 }
 
 .big {
-  background: lightblue;
+  background: white;
   grid-column: span 2;
   grid-row: span 2;
 }
 
 .normal {
-  background: teal;
-
+  background: white;
 }
-
-/* other stuff */
 
 .container>div {
   display: flex;
@@ -57,7 +54,7 @@
 }
 
 .modal_box {
-  height: 624px;
+  height: 500px;
   width: auto;
   max-width: 1000px;
   box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);

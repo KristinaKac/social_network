@@ -47,3 +47,8 @@ type ChatMessagesType = {
     photo: string
 }
 type StatusType = 'ready' | 'pending' | 'error';
+
+type PostCommentType = {
+    user: ProfileUserType,
+    text: string
+}
