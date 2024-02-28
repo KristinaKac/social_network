@@ -1,50 +1,68 @@
-.paginator_wrapper {
+@media (max-width: 510px) {
+    .page {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
 
+    .btn {
+        width: 30px;
+        height: 30px;
+        font-size: 13px;
+    }
 }
-.pages {
-    display: flex;
+
+@media (min-width: 510px) {
+    .page {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
 }
-.activePage {
-    display: flex;
-    width: 35px;
-    height: 35px;
-    background-color: #0d6efd;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 50%;
-    color: white;
-}
-.page {
-    display: flex;
-    width: 35px;
-    height: 35px;
-    cursor: pointer;
-    justify-content: center;
-    align-items: center;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 50%;
-}
-.page:hover {
-    border: 1px solid #0d6efd;
-}
+
 .btn {
     display: flex;
-    width: 35px;
-    height: 35px;
     border: none;
     outline: none;
     background-color: inherit;
     cursor: pointer;
     justify-content: center;
     align-items: center;
-    margin: 5px;
-    padding: 5px;
+    margin: 4px;
+    padding: 4px;
+    border-radius: 50%;
+
+}
+
+.page {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    margin: 4px;
+    padding: 4px;
     border-radius: 50%;
 }
+
+.pages {
+    display: flex;
+}
+
+.page:hover {
+    border: 1px solid #0d6efd;
+}
+
+.activePage {
+    background-color: #0d6efd;
+    color: white;
+}
+
 .btn:hover {
     border: 1px solid #0d6efd;
 }

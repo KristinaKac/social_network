@@ -7,7 +7,7 @@ const initialValue = {
     totalPages: 0,
     currentPage: 1,
     maxPortionOnPage: 15,
-    portionSize: 10,
+    portionSize: 7,
     isFetching: false,
     isBtnInProgress: [] as Array<number>,
     filter: {

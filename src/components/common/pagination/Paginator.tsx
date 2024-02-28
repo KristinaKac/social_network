@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import css from './Paginator.module.css';
+import cn from 'classnames';
 
 type PropsType = {
     totalPages: number,
@@ -9,7 +10,7 @@ type PropsType = {
     onClickChangePage: (page: number) => void
 }
 
-const Paginator: React.FC<PropsType> = ({totalPages ,maxPortionOnPage, portionSize, currentPage, onClickChangePage}) => {
+const Paginator: React.FC<PropsType> = ({ totalPages, maxPortionOnPage, portionSize, currentPage, onClickChangePage }) => {
     let pages = [] as Array<number>;
     let pagesCount: number = Math.ceil(totalPages / maxPortionOnPage);
     const [portionNumber, setPortionNumber] = useState(1);
@@ -30,7 +31,7 @@ const Paginator: React.FC<PropsType> = ({totalPages ,maxPortionOnPage, portionSi
                 {pages
                     .filter(page => page >= leftPortionPageNumber && page <= rightPortionPageNumber)
                     .map(page =>
-                        <span key={page} className={currentPage === page ? css.activePage : css.page}
+                        <span key={page} className={currentPage === page ? cn(css.page, css.activePage) : css.page}
                             onClick={(e) => { onClickChangePage(page) }}>{page}</span>
                     )}
                 {portionNumber < portionCount && <button className={css.btn} onClick={() => setPortionNumber(portionNumber + 1)}>&gt;</button>}

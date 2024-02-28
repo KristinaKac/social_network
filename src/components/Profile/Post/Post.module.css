@@ -27,12 +27,16 @@
 }
 
 .post_body {
-    max-width: 509px;
+    /* max-width: 509px; */
 }
 
 .post_body_text {
     font-size: 13px;
     margin-bottom: 8px;
+    width: 100%;
+}
+.text {
+    width: 100%;
 }
 
 .post_footer {

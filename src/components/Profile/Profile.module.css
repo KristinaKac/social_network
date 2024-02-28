@@ -5,94 +5,88 @@
         align-items: stretch;
         width: 100%;
     }
-
     .followers_area {
-        background-color: white;
-        border-radius: 14px;
-        padding: 18px 10px;
         margin: 18px 0px;
         height: fit-content;
     }
-
     .posts_area {
         min-width: 300px;
     }
-
     .profile {
-        border-radius: 14px;
-        background-color: white;
-        box-shadow: 0px, 4px, 16px, #ccc;
-        padding: 25px;
         display: flex;
         flex-direction: column;
         justify-content: end;
         align-items: center;
-        box-sizing: content-box;
         height: 165px;
     }
-
     .info_user_area {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-
-    .user_photo {
-        position: absolute;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        bottom: 0;
-        border: 5px solid white;
-        background-color: white;
-    }
 }
 
-@media (min-width: 701px) {
+@media (min-width: 700px) {
     .profile_body {
         display: grid;
         grid-template-columns: 4fr 2fr;
         margin-top: 18px;
         column-gap: 18px;
     }
-
     .followers_area {
-        background-color: white;
-        border-radius: 14px;
-        padding: 18px 10px;
         height: fit-content;
     }
-
-    /* .posts_area {
-        min-width: 300px;
-    } */
-
     .profile {
-        border-radius: 14px;
-        background-color: white;
-        box-shadow: 0px, 4px, 16px, #ccc;
-        padding: 25px;
         display: grid;
         grid-template-columns: 1fr 1fr 2fr;
         column-gap: 25px;
-        box-sizing: content-box;
     }
 
     .info_user_area {
         display: block;
     }
-
     .user_photo {
-        position: absolute;
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
         left: 0;
-        bottom: 0;
-        border: 5px solid white;
-        background-color: white;
     }
+}
+
+@media (max-width: 400px) {
+    .follower_name {
+        width: 60px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
+.user_photo {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    bottom: 0;
+    border: 5px solid white;
+    background-color: white;
+}
+.profile {
+    border-radius: 14px;
+    background-color: white;
+    box-shadow: 0px, 4px, 16px, #ccc;
+    padding: 25px;
+    box-sizing: content-box;
+}
+.followers_area {
+    background-color: white;
+    border-radius: 14px;
+    padding: 18px 10px;
+}
+
+.follower_name {
+    display: block;
+    color: black;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: center;
 }
 
 .background_profile {
@@ -229,14 +223,4 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-}
-
-.follower_name {
-    display: block;
-    color: black;
-    font-size: 12px;
-    margin-top: 5px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }

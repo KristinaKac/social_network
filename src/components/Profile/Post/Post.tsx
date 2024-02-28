@@ -72,7 +72,7 @@ const Post: FC<PropsType> = ({ post, currentUser }) => {
                 <ImgGallery imgs={post.imgs} />
             </div>
             <div className={css.post_footer}>
-                <Button onClick={setLikes} className={css.footer_btn}>
+                <Button danger onClick={setLikes} className={css.footer_btn}>
                     <HeartOutlined />
                     {post.likes.length !== 0 && post.likes.length}
                 </Button>

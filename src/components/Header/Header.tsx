@@ -38,9 +38,12 @@ const Header = () => {
             <div className={css.header}>
                 <div className={css.header_area}>
 
-                    <nav className={css.burger_btn}>
-                        <Button onClick={() => dispatch(actions.setMobileMenuActive(!mobileMenuActive))} icon={<MenuOutlined />} />
-                    </nav>
+                    {isAuth &&
+                        <nav className={css.burger_btn}>
+                            <Button onClick={() => dispatch(actions.setMobileMenuActive(!mobileMenuActive))} icon={<MenuOutlined />} />
+                        </nav>
+                    }
+
 
                     <NavLink to={isAuth ? '/profile' : 'login'}>
                         <img className={css.logo} src={img} alt="" />

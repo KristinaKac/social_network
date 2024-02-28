@@ -22,7 +22,7 @@ const User: React.FC<PropsType> = ({ user, isBtnInProgress }) => {
             <NavLink to={`/profile/${user.id}`} className={css.user_info}>
                 {user.photos.small
                     ? <img className={css.user_avatar} src={user.photos.small} alt="" />
-                    : <Avatar size={80} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />}
+                    : <Avatar className={css.user_avatar} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />}
                 <div className={css.user_description}>
                     <span className={css.user_name}>{user.name}</span>
                     <span className={css.user_status}>{user.status}</span>

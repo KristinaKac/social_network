@@ -8,11 +8,10 @@ import { getUsersThunk } from '../../state/usersReducer';
 import UsersSearchForm from './UsersSearchForm';
 import { useLocation, useNavigate } from 'react-router-dom';
 import queryString from 'query-string';
+import { Empty } from 'antd';
 
 
 const Users = () => {
-
-    // const totalPages = useTypedSelector((state) => state.usersPage.totalPages);
 
     const totalPages = useSelector((state: StateType) => state.usersPage.totalPages);
     const maxPortionOnPage = useSelector((state: StateType) => state.usersPage.maxPortionOnPage);
@@ -33,16 +32,16 @@ const Users = () => {
     }, [filter, currentPage]);
 
     useEffect(() => {
-        const parsed = queryString.parse(location.search) as {term: string, friend: string, page: string};
+        const parsed = queryString.parse(location.search) as { term: string, friend: string, page: string };
 
         let actualFilter = filter;
-        
+
         let actualPage = currentPage;
 
-        if(parsed.term) actualFilter = {...actualFilter, term: parsed.term as string};
-        if(parsed.friend) actualFilter = {...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false};
-        if(parsed.page) actualPage = Number(parsed.page);
-        
+        if (parsed.term) actualFilter = { ...actualFilter, term: parsed.term as string };
+        if (parsed.friend) actualFilter = { ...actualFilter, friend: parsed.friend === "null" ? null : parsed.friend === "true" ? true : false };
+        if (parsed.page) actualPage = Number(parsed.page);
+
         dispatch(getUsersThunk(actualPage, maxPortionOnPage, actualFilter));
     }, []);
 
@@ -67,14 +66,16 @@ const Users = () => {
             />
 
             <UsersSearchForm />
-
-            <ul className={css.users_list}>
-                {users.map((user: UsersType) => <User
-                    key={user.id}
-                    user={user}
-                    isBtnInProgress={isBtnInProgress} />)
-                }
-            </ul>
+            {users.length === 0
+                ? <Empty style={{marginTop: '25px'}} description='Ни одного пользователя не найдено' />
+                : <ul className={css.users_list}>
+                    {users.map((user: UsersType) => <User
+                        key={user.id}
+                        user={user}
+                        isBtnInProgress={isBtnInProgress} />)
+                    }
+                </ul>
+            }
         </div>
     )
 }

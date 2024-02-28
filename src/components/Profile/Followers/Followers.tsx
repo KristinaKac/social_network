@@ -6,6 +6,7 @@ import { getFollowersThunk, updateStatusThunk } from '../../../state/profileRedu
 import { getUsersThunk } from '../../../state/usersReducer';
 import css from '../Profile.module.css';
 import Follower from './Follower';
+import { Empty } from 'antd';
 
 type PropsType = {
 
@@ -22,13 +23,18 @@ const Followers: FC<PropsType> = ({ }) => {
 
 
     return (
-        <ul className={css.followers_list}>
-            {followers?.map((user: UsersType) =>
-                <Follower
-                    key={user.id}
-                    user={user} />)
+        <React.Fragment>
+            {followers?.length === 0
+                ? <Empty style={{ marginTop: '25px' }} description='Пока друзей нет' />
+                : <ul className={css.followers_list}>
+                    {followers?.map((user: UsersType) =>
+                        <Follower
+                            key={user.id}
+                            user={user} />)
+                    }
+                </ul>
             }
-        </ul>
+        </React.Fragment>
     )
 }
 export default Followers;

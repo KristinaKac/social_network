@@ -1,11 +1,10 @@
 .messages_block {
-    height: 75vh;
+    height: calc(100vh - 92px - 50px - 18px);
     overflow-y: auto;
     scrollbar-width: thin;
     background-color: white;
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
-
     padding: 15px 25px;
     box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
 }
@@ -70,6 +69,7 @@
     width: 100%;
     padding: 20px 35px;
     column-gap: 15px;
+    height: 92px;
 }
 
 .form_message textarea {

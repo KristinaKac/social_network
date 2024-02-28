@@ -1,7 +1,6 @@
-import React, { ChangeEvent, DetailedHTMLProps, FC, InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import css from './Profile.module.css'
 import Post from './Post/Post';
-
 import Preloader from '../common/preloader/Preloader';
 import ProfileInfo from './ProfileInfo';
 import ProfileForm from './ProfileForm/ProfileForm';
@@ -11,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { actions } from '../../state/profileReducer';
 import Followers from './Followers/Followers';
 import { NavLink } from 'react-router-dom';
+import { Empty } from 'antd';
 
 type PropsType = {
     isOwner: boolean,
@@ -56,7 +56,11 @@ const Profile: FC<PropsType> = ({ isOwner }) => {
     const postsContent =
         <div className={css.posts_area}>
             <ModalTextarea authUser={authUser} />
-            {posts.map(post => <Post post={post} key={post.id} currentUser={currentUser} />)}
+            {posts.length === 0
+                ? <Empty style={{ marginTop: '25px' }} description='Постов пока нет' />
+                : posts.map(post => <Post post={post} key={post.id} currentUser={currentUser} />)
+            }
+
         </div>
     const followersContent =
         <div className={css.followers_area}>

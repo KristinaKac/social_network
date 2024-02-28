@@ -11,23 +11,8 @@
 
 @media (max-width: 900px) {
   .app_wrapper_auth {
-    max-width: 1280px;
-    margin: 0 auto;
-    display: grid;
     grid-template-columns: 0fr 1fr;
-    grid-template-areas:
-      "n c";
     padding: 0px 4px;
-  }
-
-  .app_wrapper_not_auth {
-    max-width: 1280px;
-    padding-top: 18px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 0fr 7fr;
-    grid-template-areas:
-      "n c";
   }
 
   .app_wrapper_content {
@@ -38,26 +23,27 @@
 
 @media (min-width: 900px) {
   .app_wrapper_auth {
-    max-width: 1280px;
     padding-top: 18px;
-    margin: 0 auto;
-    display: grid;
     grid-template-columns: 2fr 7fr;
-    grid-template-areas:
-      "n c";
     padding-left: 4px;
     padding-right: 4px;
   }
-
-  .app_wrapper_not_auth {
-    max-width: 1280px;
-    padding-top: 18px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 0fr 7fr;
-    grid-template-areas:
-      "n c";
-  }
+}
+.app_wrapper_not_auth {
+  max-width: 1280px;
+  padding-top: 18px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 0fr 7fr;
+  grid-template-areas:
+    "n c";
+}
+.app_wrapper_auth {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-areas:
+    "n c";
 }
 
 body {
@@ -67,15 +53,13 @@ body {
 
 .app {
   background: linear-gradient(90deg, rgba(240, 209, 222, 1) 0%, rgba(148, 187, 233, 1) 63%);
-  height: 100vh;
+  height: calc(100vh - 50px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
-
-
-
 .app_wrapper_content {
   grid-area: c;
 }
