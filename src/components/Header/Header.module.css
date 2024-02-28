@@ -50,3 +50,15 @@
 .log_btn {
     border: none;
 }
+
+
+@media (max-width: 900px) {
+    .burger_btn {
+        display: block;
+    }
+}
+@media (min-width: 900px) {
+    .burger_btn {
+        display: none;
+    }
+}

@@ -12,6 +12,10 @@ import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import { useDispatch } from 'react-redux';
 import ChatPage from './pages/ChatPage';
+import NavbarMobile from './components/mobile/NavbarMobile';
+import { actions } from './state/navBarReducer';
+
+
 
 const App = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -28,8 +32,9 @@ const App = () => {
     <BrowserRouter>
     <HeaderPage />
       <div className={isAuth ? '' : 'app'}>
-        <div className={isAuth ? "app_wrapper_auth" : "app_wrapper_not_auth"}>
+        <div onClick={() => dispatch(actions.setMobileMenuActive(false))} className={isAuth ? "app_wrapper_auth" : "app_wrapper_not_auth"}>
           <NavBar />
+          <NavbarMobile />
           <div className='app_wrapper_content'>
             <Routes>
               <Route path='/login' element={<LoginPage />}></Route>

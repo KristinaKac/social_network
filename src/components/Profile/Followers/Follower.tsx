@@ -11,13 +11,15 @@ type PropsType = {
 const Follower: FC<PropsType> = ({ user }) => {
 
     return (
-        <NavLink className={css.follower_link} to={`/profile/${user.id}`}>
-            {user.photos.small
-                ? <img className={css.follower_img} src={user.photos.small} />
-                : <Avatar className={css.follower_img} size={64} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
-            }
-            <span className={css.follower_name}>{user.name}</span>
-        </NavLink>
+        <li className={css.follower_card}>
+            <NavLink className={css.follower_link} to={`/profile/${user.id}`}>
+                {user.photos.small
+                    ? <img className={css.follower_img} src={user.photos.small} />
+                    : <Avatar className={css.follower_img} size={64} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
+                }
+                <span className={css.follower_name}>{user.name}</span>
+            </NavLink>
+        </li>
     )
 }
 export default Follower;

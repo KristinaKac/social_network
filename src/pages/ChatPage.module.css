@@ -1,6 +1,7 @@
 .messages_block {
     height: 75vh;
     overflow-y: auto;
+    scrollbar-width: thin;
     background-color: white;
     border-top-left-radius: 14px;
     border-top-right-radius: 14px;
@@ -79,7 +80,7 @@
     border-radius: 7px;
     border: 1px solid #ececec;
     outline-color: #ececec;
-    
+
 }
 
 .send_msg_btn {
@@ -89,6 +90,7 @@
     background-color: inherit;
     cursor: pointer;
 }
+
 .send_msg_btn img {
     width: 25px;
     height: 25px;

@@ -44,6 +44,14 @@
     padding: 16px 12px;
     box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
 }
+.add_post {
+    display: flex;
+    justify-content: stretch;
+    box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
+    background-color: white;
+    padding: 5px 0;
+    border-radius: 14px;
+}
 
 .modal_btn {
     padding: 8px 16px;
@@ -54,15 +62,6 @@
     cursor: pointer;
     border-radius: 7px;
     font-size: 16px;
-}
-
-.add_post {
-    display: flex;
-    justify-content: stretch;
-    box-shadow: 4px 6px 26px -6px rgba(34, 60, 80, 0.2);
-    background-color: white;
-    padding: 5px 0;
-    border-radius: 14px;
 }
 
 .post_input {

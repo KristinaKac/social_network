@@ -22,13 +22,13 @@ const Followers: FC<PropsType> = ({ }) => {
 
 
     return (
-        <div className={css.folloers_list}>
+        <ul className={css.followers_list}>
             {followers?.map((user: UsersType) =>
                 <Follower
                     key={user.id}
                     user={user} />)
             }
-        </div>
+        </ul>
     )
 }
 export default Followers;

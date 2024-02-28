@@ -6,8 +6,9 @@ import { AppDispatch, useTypedSelector } from '../../state/redux';
 import { useDispatch } from 'react-redux';
 import { getAuthUserThunk, logoutThunk } from '../../state/authReducer';
 import avatar from '../../img/avatar.png';
-import { DownOutlined, LogoutOutlined } from '@ant-design/icons';
+import { DownOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons';
 import { Button, Popover } from 'antd';
+import { actions } from '../../state/navBarReducer';
 
 const Header = () => {
 
@@ -16,6 +17,7 @@ const Header = () => {
     const isAuth = useTypedSelector((state) => state.auth.isAuth);
     const authId = useTypedSelector((state) => state.auth.id);
     const authUser = useTypedSelector((state) => state.auth.authUser);
+    const mobileMenuActive = useTypedSelector((state) => state.navBarReducer.mobileMenuActive);
 
     useEffect(() => {
         if (!authId) return;
@@ -35,6 +37,11 @@ const Header = () => {
         <div className={css.header_wrapper}>
             <div className={css.header}>
                 <div className={css.header_area}>
+
+                    <nav className={css.burger_btn}>
+                        <Button onClick={() => dispatch(actions.setMobileMenuActive(!mobileMenuActive))} icon={<MenuOutlined />} />
+                    </nav>
+
                     <NavLink to={isAuth ? '/profile' : 'login'}>
                         <img className={css.logo} src={img} alt="" />
                     </NavLink>

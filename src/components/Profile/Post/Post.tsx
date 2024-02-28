@@ -92,7 +92,7 @@ const Post: FC<PropsType> = ({ post, currentUser }) => {
                 ]}
             >
                 <ul className={css.comments_list}>
-                    {post.comments.map(comment => <Comments comment={comment} />)}
+                    {post.comments.map(comment => <Comments key={comment.user.userId} comment={comment} />)}
                 </ul>
                 <div className={css.modal_textarea}>
                     <textarea className={css.textarea}

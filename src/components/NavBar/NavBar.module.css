@@ -1,10 +1,18 @@
+@media (max-width: 900px) {
+    .nav_back {
+        display: none;
+    }
+}
+
 .navBar {
     grid-area: n;
     background-color: #ececec;
 }
+
 .nav_back {
     min-width: 260px;
 }
+
 .nav_list {
     position: fixed;
     display: flex;
@@ -21,6 +29,7 @@
     align-items: center;
     vertical-align: middle;
 }
+
 .nav_item span {
     vertical-align: middle;
 }

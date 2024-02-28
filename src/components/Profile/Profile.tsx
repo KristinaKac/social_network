@@ -19,6 +19,18 @@ type PropsType = {
 const Profile: FC<PropsType> = ({ isOwner }) => {
     const [editMode, setEditMode] = useState(false);
 
+    const [width, setWidth] = useState(window.innerWidth);
+
+    const breakpoint = 700;
+
+    useEffect(() => {
+        const handleResizeWindow = () => setWidth(window.innerWidth);
+        window.addEventListener("resize", handleResizeWindow);
+        return () => {
+            window.removeEventListener("resize", handleResizeWindow);
+        };
+    }, []);
+
     const isSuccessEdit = useTypedSelector((state) => state.profilePage.isSuccessEdit);
     const currentUser = useTypedSelector((state) => state.profilePage.currentUser);
     const posts = useTypedSelector((state) => state.profilePage.posts);
@@ -41,6 +53,17 @@ const Profile: FC<PropsType> = ({ isOwner }) => {
         setEditMode(true);
     }
 
+    const postsContent =
+        <div className={css.posts_area}>
+            <ModalTextarea authUser={authUser} />
+            {posts.map(post => <Post post={post} key={post.id} currentUser={currentUser} />)}
+        </div>
+    const followersContent =
+        <div className={css.followers_area}>
+            <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
+            <Followers />
+        </div>
+
     return (
         <div>
             {editMode
@@ -52,18 +75,10 @@ const Profile: FC<PropsType> = ({ isOwner }) => {
                 />
             }
             <div className={css.profile_body}>
-                <div className={css.posts_area}>
-
-
-                    <ModalTextarea authUser={authUser} />
-
-                    {posts.map(post => <Post post={post} key={post.id} currentUser={currentUser} />)}
-
-                </div>
-                <div className={css.followers_area}>
-                        <NavLink className={css.title_friends} to={`/users?term=&friend=true&page=1`}>Друзья</NavLink>
-                    <Followers />
-                </div>
+                {width <= breakpoint
+                    ? <React.Fragment> {followersContent} {postsContent}</React.Fragment>
+                    : <React.Fragment> {postsContent} {followersContent}</React.Fragment>
+                }
             </div>
         </div>
     )
