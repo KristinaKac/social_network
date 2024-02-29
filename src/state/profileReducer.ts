@@ -9,7 +9,7 @@ type PostType = {
     id: number,
     avatar: string,
     text: string,
-    imgs: UploadFile[],
+    imgs: Array<UploadFile>,
     likes: number[],
     comments: Array<PostCommentType>
 }
@@ -21,9 +21,11 @@ const initialValue = {
                 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, error. Suscipit beatae repreh enderit quod non voluptatem quis! Culpa quos accusamus a, debitis sunt harum necessitatibus quo porro neque deserunt voluptatem.',
             imgs: [], likes: [], comments: []
         },
-        { id: 2, avatar: avatar, text: 
-            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, error. Suscipit beatae repreh enderit quod non voluptatem quis! Culpa quos accusamus a, debitis sunt harum necessitatibus quo porro neque deserunt voluptatem.Suscipit beatae reprehenderit quod non voluptatem quis! Culpa quos accusamus a, debitis sunt harum necessitatibus quo porro neque deserunt voluptatem.', 
-            imgs: [], likes: [], comments: [] },
+        {
+            id: 2, avatar: avatar, text:
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, error. Suscipit beatae repreh enderit quod non voluptatem quis! Culpa quos accusamus a, debitis sunt harum necessitatibus quo porro neque deserunt voluptatem.Suscipit beatae reprehenderit quod non voluptatem quis! Culpa quos accusamus a, debitis sunt harum necessitatibus quo porro neque deserunt voluptatem.',
+            imgs: [], likes: [], comments: []
+        },
     ] as Array<PostType>,
     currentUser: null as ProfileUserType | null,
     currentStatus: '',
