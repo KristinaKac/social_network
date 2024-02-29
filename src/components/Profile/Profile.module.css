@@ -5,13 +5,16 @@
         align-items: stretch;
         width: 100%;
     }
+
     .followers_area {
         margin: 18px 0px;
         height: fit-content;
     }
+
     .posts_area {
         min-width: 300px;
     }
+
     .profile {
         display: flex;
         flex-direction: column;
@@ -19,6 +22,7 @@
         align-items: center;
         height: 165px;
     }
+
     .info_user_area {
         display: flex;
         flex-direction: column;
@@ -34,9 +38,11 @@
         margin-top: 18px;
         column-gap: 18px;
     }
+
     .followers_area {
         height: fit-content;
     }
+
     .profile {
         display: grid;
         grid-template-columns: 1fr 1fr 2fr;
@@ -46,6 +52,7 @@
     .info_user_area {
         display: block;
     }
+
     .user_photo {
         left: 0;
     }
@@ -59,6 +66,7 @@
         overflow: hidden;
     }
 }
+
 .user_photo {
     position: absolute;
     width: 150px;
@@ -68,6 +76,7 @@
     border: 5px solid white;
     background-color: white;
 }
+
 .profile {
     border-radius: 14px;
     background-color: white;
@@ -75,6 +84,7 @@
     padding: 25px;
     box-sizing: content-box;
 }
+
 .followers_area {
     background-color: white;
     border-radius: 14px;
@@ -87,6 +97,10 @@
     font-size: 12px;
     margin-top: 5px;
     text-align: center;
+    width: 70px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .background_profile {
