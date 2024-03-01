@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import NavBar from './components/NavBar/NavBar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, HashRouter, Route, Routes } from 'react-router-dom';
 
 import { initializedThunk } from './state/appReducer';
 import Preloader from './components/common/preloader/Preloader';
@@ -29,7 +29,7 @@ const App = () => {
   if (!isInitialized) { return <Preloader /> }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
     <HeaderPage />
       <div className={isAuth ? '' : 'app'}>
         <div onClick={() => dispatch(actions.setMobileMenuActive(false))} className={isAuth ? "app_wrapper_auth" : "app_wrapper_not_auth"}>
@@ -46,7 +46,7 @@ const App = () => {
           </div>
         </div>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 export default App;

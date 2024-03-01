@@ -7,8 +7,9 @@ import { useDispatch } from 'react-redux';
 import { getAuthUserThunk, logoutThunk } from '../../state/authReducer';
 import avatar from '../../img/avatar.png';
 import { DownOutlined, LogoutOutlined, MenuOutlined } from '@ant-design/icons';
-import { Button, Popover } from 'antd';
+import { Avatar, Button, Popover } from 'antd';
 import { actions } from '../../state/navBarReducer';
+import { UserOutlined } from '@ant-design/icons';
 
 const Header = () => {
 
@@ -54,7 +55,11 @@ const Header = () => {
                             ? <div>
                                 <Popover trigger='click' placement='bottomRight' content={content} >
                                     <button className={css.auth_button}>
-                                        <img className={css.header_avatar} src={authUser ? authUser.photos?.small : avatar} alt="avatar" />
+
+                                        {authUser?.photos?.small
+                                            ? <img className={css.header_avatar} src={authUser.photos?.small} alt="avatar" />
+                                            : <Avatar size={35} className={css.header_avatar} style={{ backgroundColor: '#79b9f1' }} icon={<UserOutlined />} />
+                                        }
                                         <DownOutlined />
                                     </button>
                                 </Popover>
