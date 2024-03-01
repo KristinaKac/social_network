@@ -8,6 +8,9 @@
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?logo=javaScript&logoColor=black)
 ![Static Badge](https://img.shields.io/badge/Redux-%23764abc?style=flat&logo=redux&logoColor=white)
 
+## Сылка на проект на gh-pages:
+1. Проект доступен по [ссылке](https://kristinakac.github.io/social_network/).
+
 ## Основная информация:
 - Реализована адаптивная верстка
 - Использована тестовая, серверная API
@@ -40,6 +43,9 @@
 ### Логин:
 Функциональность:
 - Отображение ошибок и каптчи при неверной авторизации пользователя
+
+## Сылка на проект на gh-pages:
+1. Проект доступен по [ссылке](https://kristinakac.github.io/social_network/).
 
 ## Запуск проекта:
 
